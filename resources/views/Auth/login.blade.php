@@ -11,7 +11,7 @@
         <div class="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-gray-200 w-full max-w-md">
             
             <div class="text-center mb-6">
-            <h2 class="text-3xl font-bold text-gray-800">Welcome Back 👋</h2>
+            <h2 class="text-3xl font-bold text-gray-800">Welcome Back</h2>
             <p class="text-gray-500 text-sm mt-2">Sign in to access your dashboard</p>
             </div>
 
