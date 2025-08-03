@@ -8,6 +8,9 @@ Route::get('/welcome', function () {
 });
 Route::get('login',[AuthController::class,'login']);
 Route::get('register',[AuthController::class,'register']);
+Route::get('dashboard',[AuthController::class,'dashboard']);
+Route::get('tasks',[AuthController::class,'tasks']);
+Route::get('attendence',[AuthController::class,'attendence']);
 
 Route::fallback(function () {
     return view('errors.404');

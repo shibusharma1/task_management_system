@@ -68,4 +68,13 @@ class AuthController extends Controller
     public function register(Request $request){
         return view('auth.register');
     }
+    public function dashboard(Request $request){
+        return view('auth.dashboard');
+    }
+    public function tasks(Request $request){
+        return view('auth.tasks');
+    }
+    public function attendence(Request $request){
+        return view('auth.attendence');
+    }
 }
