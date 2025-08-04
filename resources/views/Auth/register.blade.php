@@ -96,7 +96,7 @@
                     <!-- Terms -->
                     <div class="flex items-center pt-1">
                         <input id="terms" type="checkbox" 
-                            class="h-3.5 w-3.5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            class="h-3.5 w-3.5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" required>
                         <label for="terms" class="ml-2 block text-xs text-gray-600">
                             I agree to the <a href="#" class="text-indigo-600 hover:underline">terms</a>
                         </label>
@@ -125,7 +125,7 @@
 
         <!-- Copyright -->
         <div class="mt-4 text-center text-xs text-gray-400">
-            &copy; 2023 TaskFlow Pro. All rights reserved.
+            &copy; {{{ date('Y')}}} TaskFlow Pro. All rights reserved.
         </div>
     </div>
 

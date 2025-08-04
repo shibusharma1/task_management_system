@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('requester_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('status', 20);
             $table->timestamp('due_date')->nullable();
-            $table->timestamps();
             $table->integer('quality_score')->nullable();
+            $table->timestamps();
         });
     }
 

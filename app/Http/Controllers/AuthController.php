@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auth;
+// use App\Models\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -62,19 +63,55 @@ class AuthController extends Controller
     {
         //
     }
-    public function login(Request $request){
-        return view('auth.login');
-    }
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         return view('auth.register');
     }
-    public function dashboard(Request $request){
-        return view('auth.dashboard');
+    public function login(Request $request)
+    {
+        return view('auth.login');
     }
-    public function tasks(Request $request){
+    public function authenticate(Request $request)
+    {
+        // Validate input
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        // Attempt login
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard')->with('success', 'Welcome to Dashboard');
+        }
+
+        // On failure
+        return back()->withErrors([
+            'email' => 'Invalid credentials provided.',
+        ])->onlyInput('email');
+    }
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home')->with('success', 'You have been logged out successfully.');
+    }
+    public function dashboard(Request $request)
+    {
+        return view('admin.dashboard');
+    }
+    public function tasks(Request $request)
+    {
         return view('auth.tasks');
     }
-    public function attendence(Request $request){
+    public function attendence(Request $request)
+    {
         return view('auth.attendence');
     }
 }

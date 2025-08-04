@@ -14,8 +14,8 @@ class KpiSeeder extends Seeder
      */
     public function run(): void
     {
-            Institution::all()->each(function ($institution) {
-            Kpi::factory()->count(3)->create([ 'institution_id' => $institution->id ]);
-        });
+            // Institution::all()->each(function ($institution) {
+            // Kpi::factory()->count(3)->create([ 'institution_id' => $institution->id ]);
+        // });
     }
 }

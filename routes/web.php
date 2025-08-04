@@ -1,16 +1,50 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\TasksController;
 
 Route::get('/', function () {
     return view('home');
+})->name('home');
+
+
+// Auths
+Route::get('register',[AuthController::class,'register'])->name('register');
+Route::get('login',[AuthController::class,'login'])->name('login');
+Route::post('login-authenticate', [AuthController::class, 'authenticate'])->name('login.authenticate');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+
+
+
+Route::get('/clear-all', function () {
+    if (app()->environment('local')) {
+        Artisan::call('cache:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+        Artisan::call('view:clear');
+        return 'Cleared in local environment!';
+    }
+    abort(403);
 });
-Route::get('login',[AuthController::class,'login']);
-Route::get('register',[AuthController::class,'register']);
-Route::get('dashboard',[AuthController::class,'dashboard']);
-Route::get('tasks',[AuthController::class,'tasks']);
-Route::get('attendence',[AuthController::class,'attendence']);
+
+// Group for Admin only (role:0)
+Route::middleware(['auth', 'role:0'])->group(function () {
+    Route::get('dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
+});
+
+// Group for Admin and Manager (role:0,1)
+Route::middleware(['auth', 'role:0,1'])->group(function () {
+    Route::get('tasks', [TasksController::class, 'tasks'])->name('task');
+});
+
+// Group for All Roles (role:0,1,2)
+Route::middleware(['auth', 'role:0,1,2'])->group(function () {
+    Route::get('attendence', [AttendanceController::class, 'attendence'])->name('attendence');
+});
 
 Route::fallback(function () {
     return view('errors.404');
