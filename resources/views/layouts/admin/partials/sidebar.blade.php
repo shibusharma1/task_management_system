@@ -58,7 +58,7 @@
                     <div class="flex items-center">
                         <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User profile">
                         <div class="ml-3">
-                            <p class="text-sm font-medium text-gray-700">John Doe <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">Manager</span></p>
+                            <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name }} <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">{{ auth()->user()->designation }}</span></p>
                             <a href="{{ route('logout')}}" class="text-xs font-medium text-gray-500 hover:text-gray-700">Logout</a>
                         </div>
                     </div>

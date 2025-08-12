@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 // use App\Models\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -27,10 +31,29 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+public function store(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6|confirmed', // confirmed checks password_confirmation
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
     }
+
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'institution_id' => 1,
+        'hierarchy_level' => 3,
+        'designation'=>'employee'
+    ]);
+
+    return redirect()->route('login')->with('success', "Registration Successful");
+}
 
     /**
      * Display the specified resource.
