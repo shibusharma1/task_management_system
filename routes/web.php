@@ -16,6 +16,7 @@ Route::get('register',[AuthController::class,'register'])->name('register');
 Route::get('login',[AuthController::class,'login'])->name('login');
 Route::post('login-authenticate', [AuthController::class, 'authenticate'])->name('login.authenticate');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
 
 
@@ -32,9 +33,9 @@ Route::get('/clear-all', function () {
 });
 
 // Group for Admin only (role:0)
-Route::middleware(['auth', 'role:0'])->group(function () {
-    Route::get('dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
-});
+// Route::middleware(['auth', 'role:0'])->group(function () {
+//     Route::get('dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
+// });
 
 // Group for Admin and Manager (role:0,1)
 Route::middleware(['auth', 'role:0,1'])->group(function () {
