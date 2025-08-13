@@ -455,6 +455,9 @@
                 
                 <!-- KPI Settings Content (Admin) -->
                 @include('admin.kpis.index')
+
+                <!-- institution Settings Content (Admin) -->
+                @include('admin.institution.index')
                 
                 <!-- Reports Content (Admin) -->
                 @include('admin.reports.index')
