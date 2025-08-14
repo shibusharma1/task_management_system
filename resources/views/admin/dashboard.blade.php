@@ -476,6 +476,39 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+                
+                <!-- My Tasks Content -->
+                @include('admin.tasks.index')
+                
+                <!-- Attendance Content -->
+                @include('admin.attendance.index')
+                
+                <!-- Task Assignment Content -->
+                @include('admin.tasks.task_assignment')
+                
+                <!-- Reminders Content -->
+                @include('admin.remainders.index')
+                
+                <!-- Performance Content -->
+                @include('admin.performance.index')
+                
+                <!-- Settings Content -->
+                @include('admin.settings.index')
+                
+                <!-- User Management Content (Admin) -->
+                @include('admin.user_management.index')
+                
+                <!-- KPI Settings Content (Admin) -->
+                @include('admin.kpis.index')
+
+                <!-- institution Settings Content (Admin) -->
+                @include('admin.institution.index')
+                
+                <!-- Reports Content (Admin) -->
+                @include('admin.reports.index')
+>>>>>>> 69dd7b719aabe53e6e754fd528ba9a08c3c7ab03
             </div>
         </div>
 

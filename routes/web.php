@@ -18,6 +18,7 @@ Route::post('register/store', [AuthController::class, 'store'])->name('register.
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login-authenticate', [AuthController::class, 'authenticate'])->name('login.authenticate');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+// Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
 
 

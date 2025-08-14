@@ -46,6 +46,10 @@
                                     <i class="fas fa-sliders-h mr-3 text-gray-400"></i>
                                     KPI Settings
                                 </a>
+                                <a href="#" data-target="institution" class="sidebar-link flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
+                                    <i class="fas fa-university mr-3 text-gray-400"></i>
+                                    Institution
+                                </a>
                                 <a href="#" data-target="reports" class="sidebar-link flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
                                     <i class="fas fa-file-alt mr-3 text-gray-400"></i>
                                     Reports
