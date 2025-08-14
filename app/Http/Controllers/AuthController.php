@@ -106,7 +106,8 @@ public function store(Request $request)
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard')->with('success', 'Welcome to Dashboard');
+            // return redirect()->intended('dashboard')->with('success', 'Welcome to Dashboard');
+            return redirect()->route('dashboard');
         }
 
         // On failure

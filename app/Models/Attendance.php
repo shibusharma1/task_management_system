@@ -10,6 +10,10 @@ class Attendance extends Model
     public $timestamps = false;
     protected $fillable = ['user_id', 'type', 'timestamp', 'note'];
 
+    protected $casts = [
+        'timestamp' => 'datetime',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
