@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Institution;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -37,67 +39,24 @@ class DashboardController extends Controller
 
 
         // Calling the method of attendance History
-         $attendanceHistory = $this->attendanceHistory($userId);
+        //  $attendanceHistory = $this->attendanceHistory($userId);
+
+        // Users
+        //  $users = User::paginate(10);
+        //  $usercount = User::count();
+         
+        //  $institutions = Institution::paginate(10);
+
+        
 
 
         if ($role == 0) {
-            return view('admin.dashboard', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw','attendanceHistory'));
+            return view('admin.dashboard', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw'));
         } else {
-            return view('layouts.employee.app', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw','attendanceHistory'));
+            return view('layouts.employee.app', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw'));
         }
     }
 
-    // Private class to make the code modular and easy to understand
-    private function attendanceHistory($userId)
-    {
-        $attendances = Attendance::where('user_id', $userId)
-            ->orderBy('timestamp', 'desc')
-            ->get()
-            ->groupBy(function ($item) {
-                return $item->timestamp->toDateString();
-            });
-
-        $history = [];
-
-        foreach ($attendances as $date => $records) {
-            $checkIn = $records->firstWhere('type', 'in');
-            $checkOut = $records->firstWhere('type', 'out');
-
-            $checkInTime = $checkIn ? Carbon::parse($checkIn->timestamp)->format('h:i A') : '-';
-            $checkOutTime = $checkOut ? Carbon::parse($checkOut->timestamp)->format('h:i A') : '-';
-
-            if ($checkIn && $checkOut) {
-                $hours = Carbon::parse($checkOut->timestamp)->diffInHours(Carbon::parse($checkIn->timestamp));
-                $minutes = Carbon::parse($checkOut->timestamp)->diffInMinutes(Carbon::parse($checkIn->timestamp)) % 60;
-                $worked = "{$hours}h {$minutes}m";
-            } elseif ($checkIn && !$checkOut) {
-                $worked = '-';
-            } else {
-                $worked = '-';
-            }
-
-            if ($checkIn && $checkOut) {
-                $status = 'Present';
-                $statusColor = 'green';
-            } elseif ($checkIn && !$checkOut) {
-                $status = 'Half Day';
-                $statusColor = 'yellow';
-            } else {
-                $status = 'Absent';
-                $statusColor = 'red';
-            }
-
-            $history[] = [
-                'date' => Carbon::parse($date)->format('M d, Y'),
-                'check_in' => $checkInTime,
-                'check_out' => $checkOutTime,
-                'hours_worked' => $worked,
-                'status' => $status,
-                'status_color' => $statusColor
-            ];
-        }
-
-        return $history;
-    }
+    
 }
 

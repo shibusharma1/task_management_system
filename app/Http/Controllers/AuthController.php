@@ -48,7 +48,7 @@ public function store(Request $request)
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'institution_id' => 1,
-        'hierarchy_level' => 3,
+        'hierarchy_level' => 2,
         'designation'=>'employee'
     ]);
 

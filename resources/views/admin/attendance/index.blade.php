@@ -1,4 +1,14 @@
-<div id="attendance-content" class="content-page hidden">
+@extends('layouts.admin.app')
+@section('title', 'Passion Chasers | Attendance')
+
+@push( 'styles')
+{{-- Additional Internal --}}
+
+@endpush
+
+@section( 'contents')
+<div class="flex-1 overflow-auto p-4 md:p-6 bg-gray-50">
+<div id="attendance-content" class="content-page">
     <div class="mb-6 flex justify-between items-center">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Attendance</h2>
@@ -111,40 +121,55 @@
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-<table class="min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-50">
-        <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hours Worked</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-        </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-        @foreach($attendanceHistory as $attendance)
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $attendance['date'] }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $attendance['check_in'] }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $attendance['check_out'] }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $attendance['hours_worked'] }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    @php
-                        $colorClass = match($attendance['status_color']) {
-                            'green' => 'bg-green-100 text-green-800',
-                            'yellow' => 'bg-yellow-100 text-yellow-800',
-                            'red' => 'bg-red-100 text-red-800',
-                            default => 'bg-gray-100 text-gray-800',
-                        };
-                    @endphp
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $colorClass }}">
-                        {{ $attendance['status'] }}
-                    </span>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Date</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Check In</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Check Out</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Hours Worked</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        @foreach($attendanceHistory as $attendance)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{
+                                                $attendance['date'] }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{
+                                                $attendance['check_in'] }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{
+                                                $attendance['check_out'] }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{
+                                                $attendance['hours_worked'] }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                @php
+                                                $colorClass = match($attendance['status_color']) {
+                                                'green' => 'bg-green-100 text-green-800',
+                                                'yellow' => 'bg-yellow-100 text-yellow-800',
+                                                'red' => 'bg-red-100 text-red-800',
+                                                default => 'bg-gray-100 text-gray-800',
+                                                };
+                                                @endphp
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $colorClass }}">
+                                                    {{ $attendance['status'] }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
 
                             </div>
                         </div>
@@ -308,6 +333,7 @@
     </div>
 </div>
 </div>
+@endsection
 @push('scripts')
 
 <script>

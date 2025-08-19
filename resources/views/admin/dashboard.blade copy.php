@@ -8,9 +8,9 @@
 
 @section( 'contents')
 <!-- Main content -->
-{{-- <div class="flex flex-col flex-1 overflow-hidden"> --}}
+<div class="flex flex-col flex-1 overflow-hidden">
     <!-- Top navigation -->
-   
+    @include('layouts.admin.partials.topbar')
 
     <!-- Main content area -->
     <div class="flex-1 overflow-auto p-4 md:p-6 bg-gray-50">
@@ -476,12 +476,70 @@
                         </div>
                     </div>
                 </div>
+
+                
+                <!-- My Tasks Content -->
+                @include('admin.tasks.index')
+                
+                <!-- Attendance Content -->
+                @include('admin.attendance.index')
+                
+                <!-- Task Assignment Content -->
+                @include('admin.tasks.task_assignment')
+                
+                <!-- Reminders Content -->
+                @include('admin.remainders.index')
+                
+                <!-- Performance Content -->
+                @include('admin.performance.index')
+                
+                <!-- Settings Content -->
+                @include('admin.settings.index')
+                
+                <!-- User Management Content (Admin) -->
+                @include('admin.user_management.index')
+                
+                <!-- KPI Settings Content (Admin) -->
+                @include('admin.kpis.index')
+
+                <!-- institution Settings Content (Admin) -->
+                @include('admin.institution.index')
+                
+                <!-- Reports Content (Admin) -->
+                @include('admin.reports.index')
             </div>
         </div>
 
-       
+        <!-- My Tasks Content -->
+        @include('admin.tasks.index')
+
+        <!-- Attendance Content -->
+        @include('admin.attendance.index')
+
+        <!-- Task Assignment Content -->
+        @include('admin.tasks.task_assignment')
+
+        <!-- Reminders Content -->
+        @include('admin.remainders.index')
+
+        <!-- Performance Content -->
+        @include('admin.performance.index')
+
+        <!-- Settings Content -->
+        @include('admin.settings.index')
+
+        <!-- User Management Content (Admin) -->
+        @include('admin.user_management.index')
+
+        <!-- KPI Settings Content (Admin) -->
+        @include('admin.kpis.index')
+
+        <!-- Reports Content (Admin) -->
+        @include('admin.reports.index')
     </div>
 </div>
+</div>
+
 @endsection
 
 @push('scripts')

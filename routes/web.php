@@ -48,6 +48,7 @@ Route::middleware(['auth', 'role:0,1'])->group(function () {
 
 // Group for All Roles (role:0,1,2)
 Route::middleware(['auth', 'role:0,1,2'])->group(function () {
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
 });
 

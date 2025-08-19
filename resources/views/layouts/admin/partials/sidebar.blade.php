@@ -6,15 +6,15 @@
                 </div>
                 <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto">
                     <div class="space-y-1">
-                        <a href="#" data-target="dashboard" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-white rounded-md bg-indigo-100 text-indigo-700">
+                        <a href=" {{ route('dashboard') }}" data-target="dashboard" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-white rounded-md bg-indigo-100 text-indigo-700">
                             <i class="fas fa-tachometer-alt mr-3 text-indigo-500"></i>
                             Dashboard
                         </a>
-                        <a href="#" data-target="tasks" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
+                        <a href="" data-target="tasks" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
                             <i class="fas fa-tasks mr-3 text-gray-400"></i>
                             My Tasks
                         </a>
-                        <a href="#" data-target="attendance" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
+                        <a href="{{ route('attendance.index') }}" data-target="attendance" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
                             <i class="fas fa-user-clock mr-3 text-gray-400"></i>
                             Attendance
                         </a>
