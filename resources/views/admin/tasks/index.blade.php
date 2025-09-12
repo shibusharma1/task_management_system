@@ -1,5 +1,14 @@
-<div id="tasks-content" class="content-page hidden">
-    <!-- Existing task management content -->
+@extends('layouts.admin.app')
+@section('title', 'Passion Chasers | Tasks')
+
+@push( 'styles')
+{{-- Additional Internal --}}
+
+@endpush
+
+@section( 'contents')
+<div class="flex-1 overflow-auto p-4 md:p-6 bg-gray-50">
+<div id="attendance-content" class="content-page">
     <div class="mb-6 flex justify-between items-center">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">My Tasks</h2>
@@ -265,7 +274,10 @@
         </div>
     </div>
 </div>
+</div>
 
+@endsection
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Get modal elements
@@ -315,3 +327,4 @@
         });
     });
 </script>
+@endpush

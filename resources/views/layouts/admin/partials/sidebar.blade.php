@@ -10,7 +10,7 @@
                             <i class="fas fa-tachometer-alt mr-3 text-indigo-500"></i>
                             Dashboard
                         </a>
-                        <a href="" data-target="tasks" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
+                        <a href="{{ route('task.index')}}" data-target="tasks" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
                             <i class="fas fa-tasks mr-3 text-gray-400"></i>
                             My Tasks
                         </a>
@@ -18,11 +18,11 @@
                             <i class="fas fa-user-clock mr-3 text-gray-400"></i>
                             Attendance
                         </a>
-                        <a href="#" data-target="task-assignment" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
+                        {{-- <a href="#" data-target="task-assignment" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
                             <i class="fas fa-project-diagram mr-3 text-gray-400"></i>
                             Task Assignment
-                        </a>
-                        <a href="#" data-target="reminders" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
+                        </a> --}}
+                        <a href="{{ route('remainder.index')}}" data-target="reminders" class="sidebar-link flex items-center px-2 py-3 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100">
                             <i class="fas fa-bell mr-3 text-gray-400"></i>
                             Reminders
                         </a>

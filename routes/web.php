@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AuthController;
@@ -42,14 +43,17 @@ Route::middleware(['auth', 'role:0'])->group(function () {
 
 // Group for Admin and Manager (role:0,1)
 Route::middleware(['auth', 'role:0,1'])->group(function () {
-    Route::get('tasks', [TasksController::class, 'tasks'])->name('task');
+    // Route::get('tasks', [TasksController::class, 'index'])->name('task');
 
 });
 
 // Group for All Roles (role:0,1,2)
 Route::middleware(['auth', 'role:0,1,2'])->group(function () {
-    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
-    Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
+    Route::get('tasks', [TasksController::class, 'index'])->name('task.index');
+    Route::get('reminders', [ReminderController::class, 'index'])->name('reminder.index');
+
+    Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::post('attendance', [AttendanceController::class, 'store'])->name('attendance.store');
 });
 
 Route::fallback(function () {

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Remainder;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReminderController extends Controller
 {
@@ -12,7 +14,21 @@ class ReminderController extends Controller
      */
     public function index()
     {
-        //
+        $userId = Auth::id();
+        $today = now()->toDateString();
+
+        // Fetch today's attendance (both in & out) in one query
+        $attendanceToday = Attendance::where('user_id', $userId)
+            ->whereDate('timestamp', $today)
+            ->get()
+            ->keyBy('type');
+
+        // Check in/out status
+        $checkedIn = isset($attendanceToday['in']);
+        $checkedOut = isset($attendanceToday['out']);
+
+        return view('admin.remainder.index', compact('checkedIn', 'checkedOut'));
+
     }
 
     /**
