@@ -49,7 +49,7 @@ class DashboardController extends Controller
         //  $institutions = Institution::paginate(10);
 
         // Recent 5 tasks
-        $recentTasks = Task::latest()->take(5)->get();
+        $recentTasks = Task::with('assignee')->latest()->take(5)->get();
         // dd($recentTasks);
         
 

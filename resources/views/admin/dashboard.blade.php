@@ -150,7 +150,7 @@
                         </div>
                         <div class="divide-y divide-gray-200">
                             <!-- Assigned Task -->
-                            <div class="px-4 py-4 sm:px-6">
+                            {{-- <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <input type="checkbox"
@@ -174,10 +174,10 @@
                                     <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
                                     <span>Finance Department</span>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Requested Task -->
-                            <div class="px-4 py-4 sm:px-6">
+                            {{-- <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <span class="ml-3 block font-medium">Approve marketing campaign budget</span>
@@ -197,22 +197,36 @@
                                     <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
                                     <span>Marketing Department</span>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Completed Task -->
+                            @foreach($recentTasks as $task)
                             <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <input type="checkbox"
+                                        {{-- <input type="checkbox"
                                             class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                                            checked>
-                                        <span class="ml-3 block font-medium line-through">Review employee performance
-                                            metrics</span>
+                                            checked> --}}
+                                        <span
+                                            class="ml-3 block font-medium {{ $task['status'] == 2 ? 'line-through':''}}">{{
+                                            $task['name'] }}</span>
                                     </div>
                                     <div class="flex items-center space-x-2">
+                                        @if($task['status'] == 0)
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+
+
+                                        @elseif($task['status'] == 1)
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-200 text-yellow-800">Progress</span>
+
+                                        @else
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
-                                        <span class="text-sm text-gray-500">Jul 28</span>
+
+                                        @endif
+                                        <span class="text-sm text-gray-500">{{ $task['created_at'] }}</span>
                                         <button class="text-gray-400 hover:text-gray-500">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
@@ -220,14 +234,18 @@
                                 </div>
                                 <div class="mt-2 flex items-center text-sm text-gray-500">
                                     <i class="fas fa-user-tie mr-1 text-gray-400"></i>
-                                    <span class="mr-3">Assigned by: David (Director)</span>
-                                    <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
-                                    <span>HR Department</span>
+                                    <span class="mr-3">Assigned by: {{ $task->assignee->name ?? 'N/A'}} ({{
+                                        $task->assignee->designation->designation_name ?? 'N/A'}})</span>
+                                    {{-- <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
+                                    <span>HR Department</span> --}}
                                 </div>
                             </div>
+                            @endforeach
+
                         </div>
                         <div class="px-4 py-4 sm:px-6 bg-gray-50 text-sm text-right">
-                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">View all tasks</a>
+                            <a href="{{ route('task.index') }}"
+                                class="font-medium text-indigo-600 hover:text-indigo-500">View all tasks</a>
                         </div>
                     </div>
 
