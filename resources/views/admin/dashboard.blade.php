@@ -22,10 +22,10 @@
                     <p class="text-gray-600">Welcome back! Here's your overview for today, <span id="current-date"
                             class="font-medium"></span>.</p>
                 </div>
-                <button
+                {{-- <button
                     class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
                     <i class="fas fa-plus mr-1"></i> New Task
-                </button>
+                </button> --}}
             </div>
 
             <!-- Stats cards -->
@@ -137,14 +137,14 @@
                             <div class="flex items-center justify-between">
                                 <h3 class="text-lg font-medium leading-6 text-gray-900">Task Assignment</h3>
                                 <div class="flex space-x-2">
-                                    <button
+                                    {{-- <button
                                         class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
                                         <i class="fas fa-plus mr-1"></i> Assign Task
                                     </button>
                                     <button
                                         class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-gray-700 bg-gray-100 hover:bg-gray-200">
                                         <i class="fas fa-plus mr-1"></i> Request Task
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         </div>
