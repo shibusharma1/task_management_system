@@ -13,30 +13,12 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InstitutionsController;
+use App\Http\Controllers\TaskCategoryController;
 use App\Http\Controllers\EmployeeDetailController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
-
-
-
-// Tasks Dropdown Routes
-Route::prefix('tasks')->name('task.')->group(function () {
-
-    // My Tasks
-    Route::get('/my', function () {
-        return view('task.mytask'); // resources/views/tasks/my.blade.php
-    })->name('mytask');
-
-
-    // Task Category
-    Route::get('/category', function () {
-        return view('task.category'); // resources/views/tasks/category.blade.php
-    })->name('category');
-
-});
 
 
 // Auths
@@ -96,6 +78,7 @@ Route::prefix('admin')->middleware(['auth', 'role:0'])->group(function () {
     // Tasks Routes
     // ====================    
     Route::get('/tasks', [TasksController::class, 'index'])->name('tasks.index');
+    Route::get('/my-tasks', [TasksController::class, 'myTask'])->name('task.mytask');
     Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks.create');
     Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
     Route::get('/tasks/{task}', [TasksController::class, 'show'])->name('tasks.show');
@@ -107,8 +90,15 @@ Route::prefix('admin')->middleware(['auth', 'role:0'])->group(function () {
     // Task Priority
     Route::get('priority', [PriorityController::class, 'index'])->name('task.priority');
     Route::post('priority', [PriorityController::class, 'store'])->name('task.priority.store');
-    Route::put('priority/{priority}', [PriorityController::class, 'update'])->name('task.priority.update');
+    Route::put('task/priority/{priority}', [PriorityController::class, 'update'])->name('task.priority.update');
     Route::delete('priority/{priority}', [PriorityController::class, 'destroy'])->name('task.priority.destroy');
+
+    //Task Category
+    Route::get('category', [TaskCategoryController::class, 'index'])->name('task.category');
+    Route::post('category', [TaskCategoryController::class, 'store'])->name('task.category.store');
+    Route::put('task/category/{category}', [TaskCategoryController::class, 'update'])->name('task.category.update');
+    Route::delete('category/{category}', [TaskCategoryController::class, 'destroy'])->name('task.category.destroy');
+
 
 
     Route::prefix('/settings')->name('settings.')->group(function () {

@@ -18,9 +18,9 @@ class TasksController extends Controller
         $query = Task::with(['priority', 'category', 'assignee', 'requester']);
 
         if ($search) {
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -33,17 +33,45 @@ class TasksController extends Controller
         $priorities = Priority::orderBy('id')->get();
         $categories = TaskCategory::orderBy('name')->get();
 
-        return view('admin.tasks.index', compact('tasks','priorities','categories','search','statusFilter'));
+        return view('admin.tasks.index', compact('tasks', 'priorities', 'categories', 'search', 'statusFilter'));
     }
+
+    //Just show the myTasks to the users
+    public function myTask(Request $request)
+    {
+        $search = $request->get('search');
+        $statusFilter = $request->get('status');
+
+        $query = Task::with(['priority', 'category', 'assignee', 'requester']);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        if ($statusFilter !== null && $statusFilter !== '') {
+            $query->where('status', intval($statusFilter));
+        }
+
+        $tasks = $query->where('assigned_to',auth()->user()->id)->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
+
+        $priorities = Priority::orderBy('id')->get();
+        $categories = TaskCategory::orderBy('name')->get();
+
+        return view('admin.tasks.index', compact('tasks', 'priorities', 'categories', 'search', 'statusFilter'));
+    }
+
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'task_category_id' => ['nullable','exists:task_categories,id'],
-            'name' => ['required','string','max:255'],
-            'description' => ['nullable','string'],
-            'priority_id' => ['nullable','exists:priorities,id'],
-            'assigned_to' => ['nullable','exists:users,id'],
+            'task_category_id' => ['nullable', 'exists:task_categories,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'priority_id' => ['nullable', 'exists:priorities,id'],
+            'assigned_to' => ['nullable', 'exists:users,id'],
         ]);
 
         // Assign defaults
@@ -68,18 +96,18 @@ class TasksController extends Controller
 
     public function show(Task $task)
     {
-        $task->load(['priority','category','assignee','requester']);
+        $task->load(['priority', 'category', 'assignee', 'requester']);
         return response()->json($task);
     }
 
     public function update(Request $request, Task $task)
     {
         $data = $request->validate([
-            'task_category_id' => ['nullable','exists:task_categories,id'],
-            'name' => ['required','string','max:255'],
-            'description' => ['nullable','string'],
-            'priority_id' => ['nullable','exists:priorities,id'],
-            'assigned_to' => ['nullable','exists:users,id'],
+            'task_category_id' => ['nullable', 'exists:task_categories,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'priority_id' => ['nullable', 'exists:priorities,id'],
+            'assigned_to' => ['nullable', 'exists:users,id'],
         ]);
 
         $data['assigned_by'] = auth()->id();
@@ -115,12 +143,12 @@ class TasksController extends Controller
     public function searchUsers(Request $request)
     {
         $q = $request->get('q', '');
-        $results = User::where(function($qry) use ($q) {
+        $results = User::where(function ($qry) use ($q) {
             $qry->where('name', 'like', "%{$q}%")
                 ->orWhere('email', 'like', "%{$q}%");
         })
-        ->limit(10)
-        ->get(['id','name','email']);
+            ->limit(10)
+            ->get(['id', 'name', 'email']);
 
         return response()->json($results);
     }
