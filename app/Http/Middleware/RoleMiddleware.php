@@ -21,7 +21,7 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
-        if (in_array(Auth::user()->hierarchy_level, $roles)) {
+        if (in_array(Auth::user()->designation->hierarchy_level, $roles)) {
             return $next($request);
         }
 

@@ -1,4 +1,13 @@
-                <div id="reports-content" class="content-page hidden">
+ @extends('layouts.admin.app')
+@section('title', 'Passion Chasers | Attendance')
+
+@push( 'styles')
+{{-- Additional Internal --}}
+
+@endpush
+
+@section( 'contents')
+ <div id="reports-content" class="content-page hidden">
                     <div class="mb-6 flex justify-between items-center">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-800">Reports</h2>
@@ -331,3 +340,7 @@
                         </div>
                     </div>
                 </div>
+                @endsection
+                @push('scripts')
+                    
+                @endpush

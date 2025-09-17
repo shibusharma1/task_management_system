@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,7 +16,8 @@ return new class extends Migration
             $table->foreignId('institution_id')->constrained('institutions')->onDelete('cascade');
             $table->string('phone', 20)->nullable();
             $table->text('address')->nullable();
-            $table->string('department', 50)->nullable();
+            // $table->string('department', 50)->nullable();
+            $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
             $table->timestamp('updated_at')->useCurrent();
         });
     }

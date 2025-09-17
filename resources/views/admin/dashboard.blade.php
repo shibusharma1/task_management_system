@@ -10,7 +10,7 @@
 <!-- Main content -->
 {{-- <div class="flex flex-col flex-1 overflow-hidden"> --}}
     <!-- Top navigation -->
-   
+
 
     <!-- Main content area -->
     <div class="flex-1 overflow-auto p-4 md:p-6 bg-gray-50">
@@ -281,7 +281,14 @@
                             </div>
                             <div class="border-t border-gray-200 pt-4">
                                 <h4 class="text-sm font-medium text-gray-500 mb-2">This Week</h4>
-                                <div class="grid grid-cols-7 gap-1 text-center">
+                                {{-- <div class="grid grid-cols-7 gap-1 text-center">
+                                    <div class="py-1">
+                                        <p class="text-xs text-gray-500">Sun</p>
+                                        <div
+                                            class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
+                                            <i class="fas fa-minus text-gray-500 text-xs"></i>
+                                        </div>
+                                    </div>
                                     <div class="py-1">
                                         <p class="text-xs text-gray-500">Mon</p>
                                         <div
@@ -324,150 +331,183 @@
                                             <i class="fas fa-minus text-gray-500 text-xs"></i>
                                         </div>
                                     </div>
+                                </div> --}}
+                                @php
+                                // Days of week starting from Sunday
+                                $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+                                // Get today's weekday number (0 = Sunday, 6 = Saturday)
+                                $todayIndex = now()->dayOfWeek;
+                                @endphp
+
+                                <div class="grid grid-cols-7 gap-1 text-center">
+                                    @foreach ($days as $index => $day)
                                     <div class="py-1">
-                                        <p class="text-xs text-gray-500">Sun</p>
-                                        <div
-                                            class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
-                                            <i class="fas fa-minus text-gray-500 text-xs"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        <p class="text-xs text-gray-500">{{ $day }}</p>
 
-                    <!-- Reminders -->
-                    <div class="bg-white shadow rounded-lg overflow-hidden">
-                        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-lg font-medium leading-6 text-gray-900">Reminders</h3>
-                                <button
-                                    class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
-                                    <i class="fas fa-plus mr-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                        <div class="divide-y divide-gray-200">
-                            <!-- Reminder item -->
-                            <div class="px-4 py-4 sm:px-6">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 pt-0.5">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
-                                            <i class="fas fa-bell text-indigo-600"></i>
-                                        </div>
+                                        @if ($index < $todayIndex) {{-- Past days: ✅ --}} <div
+                                            class="w-6 h-6 mx-auto mt-1 rounded-full bg-green-100 flex items-center justify-center">
+                                            <i class="fas fa-check text-green-600 text-xs"></i>
                                     </div>
-                                    <div class="ml-3 flex-1">
-                                        <div class="flex items-center justify-between">
-                                            <p class="text-sm font-medium text-gray-900">Team Meeting</p>
-                                            <p class="text-sm text-gray-500">10:30 AM</p>
-                                        </div>
-                                        <p class="mt-1 text-sm text-gray-500">Weekly sprint planning with development
-                                            team</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Reminder item -->
-                            <div class="px-4 py-4 sm:px-6">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 pt-0.5">
-                                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                                            <i class="fas fa-exclamation text-red-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-3 flex-1">
-                                        <div class="flex items-center justify-between">
-                                            <p class="text-sm font-medium text-gray-900">Project Deadline</p>
-                                            <p class="text-sm text-gray-500">Tomorrow</p>
-                                        </div>
-                                        <p class="mt-1 text-sm text-gray-500">Submit final report for client approval
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Reminder item -->
-                            <div class="px-4 py-4 sm:px-6">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 pt-0.5">
-                                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                                            <i class="fas fa-birthday-cake text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-3 flex-1">
-                                        <div class="flex items-center justify-between">
-                                            <p class="text-sm font-medium text-gray-900">Birthday</p>
-                                            <p class="text-sm text-gray-500">Aug 15</p>
-                                        </div>
-                                        <p class="mt-1 text-sm text-gray-500">Sarah's birthday celebration</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team Hierarchy -->
-                    <div class="bg-white shadow rounded-lg overflow-hidden">
-                        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">Team Hierarchy</h3>
-                        </div>
-                        <div class="p-4">
-                            <div class="space-y-4">
-                                <!-- Level 1 -->
-                                <div class="flex items-center">
+                                    @elseif ($index === $todayIndex)
+                                    {{-- Today --}}
+                                    @if ($todayIndex === 6)
+                                    {{-- Saturday = ❌ --}}
                                     <div
-                                        class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
-                                        1</div>
+                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-red-100 flex items-center justify-center">
+                                        <i class="fas fa-times text-red-600 text-xs"></i>
+                                    </div>
+                                    @else
+                                    {{-- Current day (not Saturday) = ⏳ --}}
+                                    <div
+                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-yellow-100 flex items-center justify-center">
+                                        <i class="fas fa-clock text-yellow-600 text-xs"></i>
+                                    </div>
+                                    @endif
+                                    @else
+                                    {{-- Future days: ➖ --}}
+                                    <div
+                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-minus text-gray-500 text-xs"></i>
+                                    </div>
+                                    @endif
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reminders -->
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Reminders</h3>
+                            <button
+                                class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
+                                <i class="fas fa-plus mr-1"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                    <div class="divide-y divide-gray-200">
+                        <!-- Reminder item -->
+                        <div class="px-4 py-4 sm:px-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-0.5">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                                        <i class="fas fa-bell text-indigo-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Team Meeting</p>
+                                        <p class="text-sm text-gray-500">10:30 AM</p>
+                                    </div>
+                                    <p class="mt-1 text-sm text-gray-500">Weekly sprint planning with development
+                                        team</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reminder item -->
+                        <div class="px-4 py-4 sm:px-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-0.5">
+                                    <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                                        <i class="fas fa-exclamation text-red-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Project Deadline</p>
+                                        <p class="text-sm text-gray-500">Tomorrow</p>
+                                    </div>
+                                    <p class="mt-1 text-sm text-gray-500">Submit final report for client approval
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reminder item -->
+                        <div class="px-4 py-4 sm:px-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-0.5">
+                                    <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                                        <i class="fas fa-birthday-cake text-green-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Birthday</p>
+                                        <p class="text-sm text-gray-500">Aug 15</p>
+                                    </div>
+                                    <p class="mt-1 text-sm text-gray-500">Sarah's birthday celebration</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Hierarchy -->
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">Team Hierarchy</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-4">
+                            <!-- Level 1 -->
+                            <div class="flex items-center">
+                                <div
+                                    class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
+                                    1</div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">John Doe</p>
+                                    <p class="text-xs text-gray-500">Director</p>
+                                </div>
+                            </div>
+
+                            <!-- Level 2 -->
+                            <div class="ml-8 pl-4 border-l-2 border-gray-200">
+                                <div class="flex items-center pt-2">
+                                    <div
+                                        class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                                        2</div>
                                     <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">John Doe</p>
-                                        <p class="text-xs text-gray-500">Director</p>
+                                        <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
+                                        <p class="text-xs text-gray-500">Manager</p>
                                     </div>
                                 </div>
 
-                                <!-- Level 2 -->
+                                <!-- Level 3 -->
                                 <div class="ml-8 pl-4 border-l-2 border-gray-200">
                                     <div class="flex items-center pt-2">
                                         <div
-                                            class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
-                                            2</div>
+                                            class="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold">
+                                            3</div>
                                         <div class="ml-3">
-                                            <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
-                                            <p class="text-xs text-gray-500">Manager</p>
+                                            <p class="text-sm font-medium text-gray-900">Michael Chen</p>
+                                            <p class="text-xs text-gray-500">Team Lead</p>
                                         </div>
                                     </div>
 
-                                    <!-- Level 3 -->
+                                    <!-- Level 4 -->
                                     <div class="ml-8 pl-4 border-l-2 border-gray-200">
                                         <div class="flex items-center pt-2">
                                             <div
-                                                class="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold">
-                                                3</div>
+                                                class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold">
+                                                4</div>
                                             <div class="ml-3">
-                                                <p class="text-sm font-medium text-gray-900">Michael Chen</p>
-                                                <p class="text-xs text-gray-500">Team Lead</p>
+                                                <p class="text-sm font-medium text-gray-900">David Wilson</p>
+                                                <p class="text-xs text-gray-500">Developer</p>
                                             </div>
                                         </div>
-
-                                        <!-- Level 4 -->
-                                        <div class="ml-8 pl-4 border-l-2 border-gray-200">
-                                            <div class="flex items-center pt-2">
-                                                <div
-                                                    class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold">
-                                                    4</div>
-                                                <div class="ml-3">
-                                                    <p class="text-sm font-medium text-gray-900">David Wilson</p>
-                                                    <p class="text-xs text-gray-500">Developer</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-center pt-2">
-                                                <div
-                                                    class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold">
-                                                    4</div>
-                                                <div class="ml-3">
-                                                    <p class="text-sm font-medium text-gray-900">Emily Brown</p>
-                                                    <p class="text-xs text-gray-500">Designer</p>
-                                                </div>
+                                        <div class="flex items-center pt-2">
+                                            <div
+                                                class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold">
+                                                4</div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-900">Emily Brown</p>
+                                                <p class="text-xs text-gray-500">Designer</p>
                                             </div>
                                         </div>
                                     </div>
@@ -478,16 +518,17 @@
                 </div>
             </div>
         </div>
-
-       
     </div>
+
+
+</div>
 </div>
 @endsection
 
 @push('scripts')
 
 <script>
-   document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
     let checkInRaw = @json($checkInRaw);   // e.g. "2025-08-13 15:11:00"
     let checkOutRaw = @json($checkOutRaw); // e.g. "2025-08-13 17:45:00"
     let timerEl = document.getElementById("attendance-timer");

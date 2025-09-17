@@ -2,80 +2,126 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tasks;
-use App\Models\Attendance;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Task;
+use App\Models\Priority;
+use App\Models\TaskCategory;
+use App\Models\User;
 
 class TasksController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $userId = Auth::id();
-        $today = now()->toDateString();
+        $search = $request->get('search');
+        $statusFilter = $request->get('status');
 
-        // Fetch today's attendance (both in & out) in one query
-        $attendanceToday = Attendance::where('user_id', $userId)
-            ->whereDate('timestamp', $today)
-            ->get()
-            ->keyBy('type');
+        $query = Task::with(['priority', 'category', 'assignee', 'requester']);
 
-        // Check in/out status
-        $checkedIn = isset($attendanceToday['in']);
-        $checkedOut = isset($attendanceToday['out']);
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
 
-        return view('admin.tasks.index',compact('checkedIn', 'checkedOut'));
+        if ($statusFilter !== null && $statusFilter !== '') {
+            $query->where('status', intval($statusFilter));
+        }
 
+        $tasks = $query->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
+
+        $priorities = Priority::orderBy('id')->get();
+        $categories = TaskCategory::orderBy('name')->get();
+
+        return view('admin.tasks.index', compact('tasks','priorities','categories','search','statusFilter'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'task_category_id' => ['nullable','exists:task_categories,id'],
+            'name' => ['required','string','max:255'],
+            'description' => ['nullable','string'],
+            'priority_id' => ['nullable','exists:priorities,id'],
+            'assigned_to' => ['nullable','exists:users,id'],
+        ]);
+
+        // Assign defaults
+        $data['assigned_by'] = auth()->id();
+        $data['status'] = 0;
+        $data['is_approved'] = 0;
+
+        // Compute is_requested
+        $assignedBy = auth()->user();
+        $assignedTo = $data['assigned_to'] ? User::find($data['assigned_to']) : null;
+
+        if ($assignedBy && $assignedBy->role === 'manager' && $assignedTo && $assignedTo->role === 'admin') {
+            $data['is_requested'] = 1;
+        } else {
+            $data['is_requested'] = 0;
+        }
+
+        Task::create($data);
+
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+    }
+
+    public function show(Task $task)
+    {
+        $task->load(['priority','category','assignee','requester']);
+        return response()->json($task);
+    }
+
+    public function update(Request $request, Task $task)
+    {
+        $data = $request->validate([
+            'task_category_id' => ['nullable','exists:task_categories,id'],
+            'name' => ['required','string','max:255'],
+            'description' => ['nullable','string'],
+            'priority_id' => ['nullable','exists:priorities,id'],
+            'assigned_to' => ['nullable','exists:users,id'],
+        ]);
+
+        $data['assigned_by'] = auth()->id();
+
+        // Keep status unless explicitly changed
+        $data['status'] = $task->status ?? 0;
+        $data['is_approved'] = $task->is_approved ?? 0;
+
+        // Compute is_requested again on update
+        $assignedBy = auth()->user();
+        $assignedTo = $data['assigned_to'] ? User::find($data['assigned_to']) : null;
+
+        if ($assignedBy && $assignedBy->role === 'manager' && $assignedTo && $assignedTo->role === 'admin') {
+            $data['is_requested'] = 1;
+        } else {
+            $data['is_requested'] = 0;
+        }
+
+        $task->update($data);
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
+    }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
 
     /**
-     * Display the specified resource.
+     * AJAX search users by name/email.
      */
-    public function show(Tasks $tasks)
+    public function searchUsers(Request $request)
     {
-        //
-    }
+        $q = $request->get('q', '');
+        $results = User::where(function($qry) use ($q) {
+            $qry->where('name', 'like', "%{$q}%")
+                ->orWhere('email', 'like', "%{$q}%");
+        })
+        ->limit(10)
+        ->get(['id','name','email']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tasks $tasks)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tasks $tasks)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tasks $tasks)
-    {
-        //
+        return response()->json($results);
     }
 }

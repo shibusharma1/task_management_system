@@ -1,3 +1,12 @@
+@extends('layouts.admin.app')
+@section('title', 'Passion Chasers | Attendance')
+
+@push( 'styles')
+{{-- Additional Internal --}}
+
+@endpush
+
+@section( 'contents')
 <!-- Main Content -->
 <div id="institution-content" class="content-page hidden p-6 bg-white rounded-lg shadow-sm">
     <!-- Header -->
@@ -99,3 +108,7 @@
         
     </div>
 </div>
+@endsection
+@push('scripts')
+    
+@endpush

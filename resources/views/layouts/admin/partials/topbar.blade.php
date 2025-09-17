@@ -22,7 +22,7 @@
                 <i class="fas fa-sign-in-alt mr-1"></i> Check In
             </button>
         </form> --}}
-        @if(!$checkedIn)
+        {{-- @if(!$checkedIn)
         <!-- Show Check In button -->
         <form action="{{ route('attendance.store') }}" method="POST">
             @csrf
@@ -32,22 +32,22 @@
                 <i class="fas fa-sign-in-alt mr-1"></i> Check In
             </button>
         </form>
-        @elseif($checkedIn && !$checkedOut)
+        @elseif($checkedIn && !$checkedOut) --}}
         <!-- Show Check Out button -->
-        <form action="{{ route('attendance.store') }}" method="POST">
+        {{-- <form action="{{ route('attendance.store') }}" method="POST">
             @csrf
             <input type="hidden" name="type" value="out">
             <button type="submit"
                 class="px-3 py-1 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none">
                 <i class="fas fa-sign-out-alt mr-1"></i> Check Out
             </button>
-        </form>
-        @else
+        </form> --}}
+        {{-- @else --}}
         <!-- Already checked in and out -->
-        <button disabled class="px-3 py-1 text-sm font-medium rounded-md text-white bg-gray-400 cursor-not-allowed">
+        {{-- <button disabled class="px-3 py-1 text-sm font-medium rounded-md text-white bg-gray-400 cursor-not-allowed">
             Attendance Marked
         </button>
-        @endif
+        @endif --}}
         <button class="p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none">
             <i class="fas fa-bell"></i>
             <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>

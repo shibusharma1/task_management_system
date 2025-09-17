@@ -19,4 +19,8 @@ class EmployeeDetail extends Model
     {
         return $this->belongsTo(Institution::class);
     }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

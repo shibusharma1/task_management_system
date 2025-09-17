@@ -20,7 +20,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
- 
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,8 +44,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    
-    protected $fillable = ['institution_id', 'name', 'email','password','designation', 'hierarchy_level'];
+
+    protected $fillable = ['institution_id', 'name', 'email', 'password', 'designation_id'];
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class);
+    }
 
     public function institution(): BelongsTo
     {

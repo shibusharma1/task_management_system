@@ -12,6 +12,11 @@
     <link rel="icon" type="image/png" href="{{ asset('images/passionchasers.png')}}" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Alpine.js for dropdown functionality -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
 
 
     @stack('styles')

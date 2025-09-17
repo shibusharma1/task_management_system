@@ -2,64 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Institutions;
+use App\Models\Institution;
 use Illuminate\Http\Request;
 
 class InstitutionsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of institutions.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->input('search');
+        $institutions = Institution::query()
+            ->when($search, fn($q) => $q->where('name', 'like', "%$search%")
+                ->orWhere('client_id', 'like', "%$search%")
+                ->orWhere('email', 'like', "%$search%"))
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.settings.institutions.index', compact('institutions', 'search'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created institution.
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'client_id' => 'required|string|max:50|unique:institutions,client_id',
+            'name' => 'required|string|max:100|unique:institutions,name',
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|unique:institutions,email',
+            'website' => 'nullable|url',
+        ]);
+
+        Institution::create($data);
+
+        return redirect()->route('settings.institutions.index')->with('success', 'Institution created successfully.');
     }
 
     /**
-     * Display the specified resource.
+     * Update the specified institution.
      */
-    public function show(Institutions $institutions)
+    public function update(Request $request, Institution $institution)
     {
-        //
+        $data = $request->validate([
+            'client_id' => 'required|string|max:50|unique:institutions,client_id,' . $institution->id,
+            'name' => 'required|string|max:100|unique:institutions,name,' . $institution->id,
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|unique:institutions,email,' . $institution->id,
+            'website' => 'nullable|url',
+        ]);
+
+        $institution->update($data);
+
+        return redirect()->route('settings.institutions')->with('success', 'Institution updated successfully.');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Remove the specified institution.
      */
-    public function edit(Institutions $institutions)
+    public function destroy(Institution $institution)
     {
-        //
-    }
+        // $institution->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Institutions $institutions)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Institutions $institutions)
-    {
-        //
+        return redirect()->route('settings.institutions')->with('error', 'Institution cannot be deleted.');
     }
 }
+

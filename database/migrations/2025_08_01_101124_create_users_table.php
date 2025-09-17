@@ -19,8 +19,11 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('institution_id')->constrained('institutions')->onDelete('cascade');
-            $table->string('designation', 50);
-            $table->integer('hierarchy_level');
+            // $table->string('designation', 50);
+            // $table->integer('hierarchy_level');
+            $table->foreignId('designation_id')
+                ->constrained('designations')
+                ->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

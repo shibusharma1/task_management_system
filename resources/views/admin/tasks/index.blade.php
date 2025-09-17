@@ -1,330 +1,361 @@
 @extends('layouts.admin.app')
-@section('title', 'Passion Chasers | Tasks')
+@section('title', 'Admin | Task Management')
 
-@push( 'styles')
-{{-- Additional Internal --}}
-
+@push('styles')
+<!-- add any page-specific styles here -->
 @endpush
 
-@section( 'contents')
+@section('contents')
 <div class="flex-1 overflow-auto p-4 md:p-6 bg-gray-50">
-<div id="attendance-content" class="content-page">
-    <div class="mb-6 flex justify-between items-center">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-800">My Tasks</h2>
-            <p class="text-gray-600">View and manage all your assigned tasks</p>
+
+    {{-- Flash Messages --}}
+    @if(session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: "{{ session('success') }}",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        </script>
+    @endif
+
+    <div class="mb-6 flex justify-between items-center flex-wrap">
+        <div class="mb-2 md:mb-0">
+            <h2 class="text-2xl font-bold text-gray-800">Task Management</h2>
+            <p class="text-gray-600">Manage tasks, priorities, categories and assignments</p>
         </div>
+
         <div class="flex space-x-2">
+            <form method="GET" class="flex space-x-2">
+                <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Search tasks..."
+                    class="border rounded-md px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <select name="status" class="border rounded-md px-3 py-2 text-sm">
+                    <option value="">All status</option>
+                    <option value="0" {{ (string)($statusFilter ?? '') === '0' ? 'selected' : '' }}>Pending</option>
+                    <option value="1" {{ ($statusFilter ?? '') === '1' ? 'selected' : '' }}>In Progress</option>
+                    <option value="2" {{ ($statusFilter ?? '') === '2' ? 'selected' : '' }}>Completed</option>
+                </select>
+                <button type="submit" class="px-3 py-2 bg-gray-100 text-sm rounded hover:bg-gray-200">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
             <button id="new-task-button"
                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
                 <i class="fas fa-plus mr-1"></i> New Task
             </button>
-            <div class="relative">
-                <select
-                    class="appearance-none bg-white border border-gray-300 rounded-md pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                    <option>All Tasks</option>
-                    <option>Pending</option>
-                    <option>In Progress</option>
-                    <option>Completed</option>
-                    <option>Overdue</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <i class="fas fa-chevron-down text-xs"></i>
-                </div>
-            </div>
         </div>
     </div>
 
+    <!-- Table -->
     <div class="bg-white shadow rounded-lg overflow-hidden">
-        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Task List</h3>
-                <div class="flex items-center space-x-2">
-                    <button
-                        class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-gray-700 bg-gray-100 hover:bg-gray-200">
-                        <i class="fas fa-filter mr-1"></i> Filter
-                    </button>
-                    <button
-                        class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-gray-700 bg-gray-100 hover:bg-gray-200">
-                        <i class="fas fa-sort mr-1"></i> Sort
-                    </button>
-                </div>
-            </div>
+        <div class="px-4 py-5 sm:px-6 border-b border-gray-200 flex justify-between">
+            <h3 class="text-lg font-medium text-gray-900">Task List</h3>
         </div>
-        <div class="divide-y divide-gray-200">
-            <!-- Task Item -->
-            <div class="px-4 py-4 sm:px-6">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox"
-                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                        <span class="ml-3 block font-medium">Complete quarterly financial report</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
-                        <span class="text-sm text-gray-500">Due: Aug 5</span>
-                        <button class="text-gray-400 hover:text-gray-500">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-user-tie mr-1 text-gray-400"></i>
-                    <span class="mr-3">Assigned by: Sarah (Manager)</span>
-                    <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
-                    <span>Finance Department</span>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-align-left mr-1 text-gray-400"></i>
-                    <span>Complete the Q3 financial report with all department expenses and revenue projections.</span>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-comment mr-1 text-gray-400"></i>
-                    <span class="text-indigo-600">2 new comments</span>
-                </div>
-            </div>
 
-            <!-- Task Item -->
-            <div class="px-4 py-4 sm:px-6">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox"
-                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" checked>
-                        <span class="ml-3 block font-medium line-through">Review employee performance metrics</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
-                        <span class="text-sm text-gray-500">Jul 28</span>
-                        <button class="text-gray-400 hover:text-gray-500">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-user-tie mr-1 text-gray-400"></i>
-                    <span class="mr-3">Assigned by: David (Director)</span>
-                    <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
-                    <span>HR Department</span>
-                </div>
-            </div>
-
-            <!-- Task Item -->
-            <div class="px-4 py-4 sm:px-6">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox"
-                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                        <span class="ml-3 block font-medium">Prepare presentation for client meeting</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">In
-                            Progress</span>
-                        <span class="text-sm text-gray-500">Due: Aug 10</span>
-                        <button class="text-gray-400 hover:text-gray-500">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-user-tie mr-1 text-gray-400"></i>
-                    <span class="mr-3">Assigned by: Michael (Team Lead)</span>
-                    <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
-                    <span>Marketing Department</span>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-align-left mr-1 text-gray-400"></i>
-                    <span>Create a 15-slide presentation for the upcoming client meeting with Acme Corp.</span>
-                </div>
-            </div>
-
-            <!-- Task Item -->
-            <div class="px-4 py-4 sm:px-6">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox"
-                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                        <span class="ml-3 block font-medium">Update project documentation</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Overdue</span>
-                        <span class="text-sm text-gray-500">Due: Jul 25</span>
-                        <button class="text-gray-400 hover:text-gray-500">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-user-tie mr-1 text-gray-400"></i>
-                    <span class="mr-3">Assigned by: Sarah (Manager)</span>
-                    <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
-                    <span>Development Department</span>
-                </div>
-                <div class="mt-2 flex items-center text-sm text-gray-500">
-                    <i class="fas fa-align-left mr-1 text-gray-400"></i>
-                    <span>Update all API documentation for the new release.</span>
-                </div>
-            </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2">#</th>
+                        <th class="px-4 py-2">Task</th>
+                        <th class="px-4 py-2">Category</th>
+                        <th class="px-4 py-2">Priority</th>
+                        <th class="px-4 py-2">Assignee</th>
+                        <th class="px-4 py-2">Status</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @forelse($tasks as $index => $task)
+                    <tr>
+                        <td class="px-4 py-2">{{ $tasks->firstItem() + $index }}</td>
+                        <td class="px-4 py-2 font-semibold text-gray-800">{{ $task->name ?? '-' }}</td>
+                        <td class="px-4 py-2 text-gray-600">{{ $task->category->name ?? '-' }}</td>
+                        <td class="px-4 py-2 text-gray-600">{{ $task->priority->name ?? '-' }}</td>
+                        <td class="px-4 py-2 text-gray-600">{{ $task->assignee?->name ?? '-' }}</td>
+                        <td class="px-4 py-2">
+                            @if($task->status == 0)
+                                <span class="px-2 py-1 rounded text-xs bg-yellow-100 text-yellow-800">Pending</span>
+                            @elseif($task->status == 1)
+                                <span class="px-2 py-1 rounded text-xs bg-blue-100 text-blue-800">In Progress</span>
+                            @else
+                                <span class="px-2 py-1 rounded text-xs bg-green-100 text-green-800">Completed</span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-2 flex space-x-2">
+                            <button class="view-btn text-gray-600 hover:text-gray-900" data-id="{{ $task->id }}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="edit-btn text-indigo-600 hover:text-indigo-800" data-id="{{ $task->id }}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form method="POST" action="{{ route('tasks.destroy', $task) }}" class="inline delete-form">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-800">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="px-4 py-4 text-center text-gray-500">No tasks found.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-        <div class="px-4 py-4 sm:px-6 bg-gray-50 text-sm text-right">
-            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">View all tasks</a>
+
+        <div class="px-4 py-4 bg-gray-50">
+            {{ $tasks->links() }}
         </div>
     </div>
 </div>
 
+<!-- Modal -->
+<div id="task-modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-xl transform transition-all max-w-2xl w-full p-6 relative z-20">
+            <button type="button" id="close-modal-btn" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-lg"></i>
+            </button>
 
+            <h3 class="text-lg font-medium text-gray-900 mb-4" id="modal-title">New Task</h3>
 
-<!-- New Task Modal (hidden by default) -->
-<div id="new-task-modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
-    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <!-- Background overlay -->
-        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
+            <form id="task-form" method="POST" class="space-y-4" action="{{ route('tasks.store') }}">
+                @csrf
+                <input type="hidden" name="_method" id="form-method" value="POST">
+                <input type="hidden" name="task_id" id="task-id">
 
-        <!-- Modal container -->
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-        <div
-            class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-            <div>
-                <h3 class="text-lg leading-6 font-medium text-gray-900">Create New Task</h3>
-                <div class="mt-5">
-                    <form id="task-form">
-                        <div class="mb-4">
-                            <label for="task-title" class="block text-sm font-medium text-gray-700">Task Title</label>
-                            <input type="text" id="task-title" name="task-title"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                required>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Category</label>
+                        <select name="task_category_id" id="task_category_id" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
+                            <option value="">-- Select Category --</option>
+                            @foreach($categories as $c)
+                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="mb-4">
-                            <label for="task-description"
-                                class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="task-description" name="task-description" rows="3"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
-                        </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Priority</label>
+                        <select name="priority_id" id="priority_id" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
+                            <option value="">-- Select Priority --</option>
+                            @foreach($priorities as $p)
+                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label for="task-due-date" class="block text-sm font-medium text-gray-700">Due
-                                    Date</label>
-                                <input type="date" id="task-due-date" name="task-due-date"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                            </div>
-                            <div>
-                                <label for="task-status" class="block text-sm font-medium text-gray-700">Status</label>
-                                <select id="task-status" name="task-status"
-                                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    <option value="pending">Pending</option>
-                                    <option value="in-progress">In Progress</option>
-                                    <option value="completed">Completed</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Task Name</label>
+                        <input type="text" name="name" id="task-name" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
+                    </div>
 
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label for="task-assignee"
-                                    class="block text-sm font-medium text-gray-700">Assignee</label>
-                                <select id="task-assignee" name="task-assignee"
-                                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    <option value="john">John Doe</option>
-                                    <option value="jane">Jane Smith</option>
-                                    <option value="mike">Mike Johnson</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="task-department"
-                                    class="block text-sm font-medium text-gray-700">Department</label>
-                                <select id="task-department" name="task-department"
-                                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    <option value="development">Development</option>
-                                    <option value="marketing">Marketing</option>
-                                    <option value="finance">Finance</option>
-                                    <option value="hr">HR</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea name="description" id="task-desc" rows="4" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2"></textarea>
+                    </div>
 
-                        <div class="mb-4">
-                            <label for="task-priority" class="block text-sm font-medium text-gray-700">Priority</label>
-                            <select id="task-priority" name="task-priority"
-                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                <option value="low">Low</option>
-                                <option value="medium" selected>Medium</option>
-                                <option value="high">High</option>
-                            </select>
-                        </div>
-                    </form>
+                    <!-- assignee search -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Assign To</label>
+                        <input type="hidden" name="assigned_to" id="assigned_to">
+                        <input type="text" id="assigned_to_search" placeholder="Search user by name or email" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
+                        <div id="assigned_to_suggestions" class="bg-white border mt-1 rounded shadow max-h-48 overflow-auto hidden"></div>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Assigned By</label>
+                        <input type="text" value="{{ auth()->user()->name }}" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2 bg-gray-100" readonly>
+                    </div>
                 </div>
-            </div>
-            <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                <button id="create-task-button" type="button"
-                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-                    Create Task
-                </button>
-                <button id="cancel-task-button" type="button"
-                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
-                    Cancel
-                </button>
-            </div>
+
+                <div class="flex justify-end space-x-2 mt-4">
+                    <button type="button" id="cancel-btn" class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">Cancel</button>
+                    <button type="submit" id="save-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 </div>
 
 @endsection
+
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get modal elements
-        const newTaskButton = document.getElementById('new-task-button');
-        const newTaskModal = document.getElementById('new-task-modal');
-        const cancelTaskButton = document.getElementById('cancel-task-button');
-        const createTaskButton = document.getElementById('create-task-button');
-        const taskForm = document.getElementById('task-form');
-        
-        // Show modal when New Task button is clicked
-        newTaskButton.addEventListener('click', function() {
-            newTaskModal.classList.remove('hidden');
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('task-modal');
+    const newBtn = document.getElementById('new-task-button');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const form = document.getElementById('task-form');
+    const modalTitle = document.getElementById('modal-title');
+    const methodInput = document.getElementById('form-method');
+    const taskIdInput = document.getElementById('task-id');
+
+    // inputs
+    const nameInput = document.getElementById('task-name');
+    const descInput = document.getElementById('task-desc');
+    const categorySelect = document.getElementById('task_category_id');
+    const prioritySelect = document.getElementById('priority_id');
+    const assignedToSearch = document.getElementById('assigned_to_search');
+    const assignedToHidden = document.getElementById('assigned_to');
+    const assignedToSuggestions = document.getElementById('assigned_to_suggestions');
+
+    function openModal() { modal.classList.remove('hidden'); }
+    function closeModal() { modal.classList.add('hidden'); }
+
+    // open modal for create
+    if (newBtn) {
+        newBtn.addEventListener('click', () => {
+            modalTitle.innerText = 'New Task';
+            form.action = "{{ route('tasks.store') }}";
+            methodInput.value = 'POST';
+            taskIdInput.value = '';
+            nameInput.value = '';
+            descInput.value = '';
+            categorySelect.value = '';
+            prioritySelect.value = '';
+            assignedToHidden.value = '';
+            assignedToSearch.value = '';
+            openModal();
         });
-        
-        // Hide modal when Cancel button is clicked
-        cancelTaskButton.addEventListener('click', function() {
-            newTaskModal.classList.add('hidden');
-        });
-        
-        // Handle form submission
-        createTaskButton.addEventListener('click', function() {
-            if (taskForm.checkValidity()) {
-                // Here you would typically send the data to your backend
-                // For now, we'll just log it and close the modal
-                const formData = new FormData(taskForm);
-                const taskData = Object.fromEntries(formData.entries());
-                console.log('New task created:', taskData);
-                
-                // Close the modal
-                newTaskModal.classList.add('hidden');
-                
-                // Reset the form
-                taskForm.reset();
-                
-                // In a real app, you would add the new task to the list here
-                // or refresh the task list from the server
-            } else {
-                taskForm.reportValidity();
-            }
-        });
-        
-        // Close modal when clicking outside the modal content
-        newTaskModal.addEventListener('click', function(e) {
-            if (e.target === newTaskModal) {
-                newTaskModal.classList.add('hidden');
+    }
+
+    cancelBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    // handle view buttons
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            try {
+                const res = await fetch(`{{ url('admin/tasks') }}/${id}`, { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) throw new Error('Failed to load');
+                const task = await res.json();
+
+                modalTitle.innerText = 'View Task';
+                form.action = '#';
+                methodInput.value = 'GET';
+                taskIdInput.value = task.id;
+                nameInput.value = task.name ?? '';
+                descInput.value = task.description ?? '';
+                categorySelect.value = task.task_category_id ?? '';
+                prioritySelect.value = task.priority_id ?? '';
+                assignedToHidden.value = task.assigned_to ?? '';
+                assignedToSearch.value = task.assignee ? `${task.assignee.name} <${task.assignee.email}>` : '';
+
+                Array.from(form.elements).forEach(el => el.disabled = true);
+                cancelBtn.disabled = false;
+                openModal();
+            } catch (err) {
+                Swal.fire('Error', 'Unable to load task details', 'error');
             }
         });
     });
+
+    // handle edit buttons
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            try {
+                const res = await fetch(`{{ url('admin/tasks') }}/${id}`, { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) throw new Error('Failed to load');
+                const task = await res.json();
+
+                modalTitle.innerText = 'Edit Task';
+                form.action = `{{ url('admin/tasks') }}/${task.id}`;
+                methodInput.value = 'PUT';
+                taskIdInput.value = task.id;
+                nameInput.value = task.name ?? '';
+                descInput.value = task.description ?? '';
+                categorySelect.value = task.task_category_id ?? '';
+                prioritySelect.value = task.priority_id ?? '';
+                assignedToHidden.value = task.assigned_to ?? '';
+                assignedToSearch.value = task.assignee ? `${task.assignee.name} <${task.assignee.email}>` : '';
+
+                Array.from(form.elements).forEach(el => el.disabled = false);
+                openModal();
+            } catch (err) {
+                Swal.fire('Error', 'Unable to load task details', 'error');
+            }
+        });
+    });
+
+    // Delete confirmation
+    document.querySelectorAll('.delete-form').forEach(f => {
+        f.addEventListener('submit', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This action cannot be undone!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#e3342f',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) f.submit();
+            });
+        });
+    });
+
+    // Debounce helper
+    function debounce(fn, delay=300) {
+        let t;
+        return function(...args) {
+            clearTimeout(t);
+            t = setTimeout(() => fn.apply(this, args), delay);
+        };
+    }
+
+    // AJAX user search
+    async function searchUsers(q) {
+        if (!q) return [];
+        const url = new URL("{{ route('users.search') }}", location.origin);
+        url.searchParams.set('q', q);
+        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) return [];
+        return await res.json();
+    }
+
+    function showSuggestions(container, items) {
+        container.innerHTML = '';
+        if (!items.length) {
+            container.classList.add('hidden');
+            return;
+        }
+        items.forEach(user => {
+            const div = document.createElement('div');
+            div.className = 'px-3 py-2 cursor-pointer hover:bg-gray-100';
+            div.innerText = `${user.name} (${user.email})`;
+            div.dataset.id = user.id;
+            container.appendChild(div);
+        });
+        container.classList.remove('hidden');
+    }
+
+    assignedToSearch.addEventListener('input', debounce(async () => {
+        const users = await searchUsers(assignedToSearch.value);
+        showSuggestions(assignedToSuggestions, users);
+    }));
+
+    assignedToSuggestions.addEventListener('click', e => {
+        if (e.target.dataset.id) {
+            assignedToHidden.value = e.target.dataset.id;
+            assignedToSearch.value = e.target.innerText;
+            assignedToSuggestions.classList.add('hidden');
+        }
+    });
+});
 </script>
 @endpush
