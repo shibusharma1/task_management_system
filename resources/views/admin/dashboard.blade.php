@@ -13,9 +13,9 @@
 
 
     <!-- Main content area -->
-    <div class="flex-1 overflow-auto p-4 md:p-6 bg-gray-50">
+    <div class="flex-1 overflow-auto  bg-gray-50">
         <!-- Dashboard Content -->
-        <div id="dashboard-content" class="content-page">
+        <div id="dashboard-content" class="content-page p-4 md:p-6">
             <div class="mb-6 flex justify-between items-center">
                 <div>
                     <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
@@ -297,14 +297,14 @@
                                     {{-- <p id="attendance-status" class="text-lg font-semibold text-gray-900">Checked
                                         In: 09:15 AM</p> --}}
                                     @if($checkedIn && !$checkedOut)
-                                    <p id="attendance-status" class="text-lg font-semibold text-gray-900">Checked In: {{
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked In: {{
                                         $checkInFormatted }}</p>
                                     @elseif($checkedOut && $checkedIn)
-                                    <p id="attendance-status" class="text-lg font-semibold text-gray-900">Checked Out:
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked Out:
                                         {{
                                         $checkOutFormatted }}</p>
                                     @else
-                                    <p id="attendance-status" class="text-lg font-semibold text-gray-900">Checked In:
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked In:
                                         --:-- -- </p>
                                     @endif
 
@@ -589,7 +589,9 @@
         </div>
     </div>
 
-
+    <div class="bg-gray-200 text-left p-4 w-full">
+        <p class="text-sm text-gray-600">&copy; {{ date('Y') }} Passion Chasers. All rights reserved.</p>
+    </div>
 </div>
 </div>
 @endsection

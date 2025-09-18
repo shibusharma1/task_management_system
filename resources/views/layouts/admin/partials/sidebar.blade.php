@@ -27,7 +27,7 @@
                     class="w-full flex items-center justify-between px-2 py-3 text-sm font-medium rounded-md
                     {{ request()->routeIs('task.*') ? 'text-indigo-700 bg-indigo-100' : 'text-gray-600 hover:bg-gray-100' }}">
               <div class="flex items-center">
-                <i class="fas fa-tasks mr-3 {{ request()->routeIs('task.*') ? 'text-indigo-500' : 'text-gray-400' }}"></i>
+                <i class="fas fa-tasks mr-3 {{ request()->routeIs('task.*') ? 'text-indigo-500' : 'text-gray-600' }}"></i>
                 <span>Tasks</span>
               </div>
               <i :class="open ? 'fas fa-chevron-up' : 'fas fa-chevron-down'" class="text-xs"></i>
@@ -83,7 +83,7 @@
                     class="w-full flex items-center justify-between px-2 py-3 text-sm font-medium rounded-md
                     {{ request()->routeIs('settings.*') ? 'text-indigo-700 bg-indigo-100' : 'text-gray-600 hover:bg-gray-100' }}">
               <div class="flex items-center">
-                <i class="fas fa-cog mr-3 {{ request()->routeIs('settings.*') ? 'text-indigo-500' : 'text-gray-400' }}"></i>
+                <i class="fas fa-cog mr-3 {{ request()->routeIs('settings.*') ? 'text-indigo-500' : 'text-gray-600' }}"></i>
                 <span>Settings</span>
               </div>
               <i :class="open ? 'fas fa-chevron-up' : 'fas fa-chevron-down'" class="text-xs"></i>
