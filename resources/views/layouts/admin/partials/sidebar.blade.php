@@ -1,3 +1,6 @@
+<style>
+  .sidebar-scroll::-webkit-scrollbar { display: none !important; }
+</style>
 <!-- Sidebar -->
 <div class="hidden md:flex md:flex-shrink-0">
     <div class="flex flex-col w-64 bg-white border-r border-gray-200">
@@ -7,7 +10,7 @@
       </div>
   
       <!-- Navigation -->
-      <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto">
+      <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto sidebar-scroll">
         <div class="space-y-1">
   
           <!-- Dashboard -->
