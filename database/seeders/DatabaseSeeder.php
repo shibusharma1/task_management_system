@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
             InstitutionSeeder::class,
             PrioritiesTableSeeder::class,
             TaskCategoriesTableSeeder::class,
-            TasksTableSeeder::class,
             DepartmentSeeder::class,
             DesignationSeeder::class,
             UserSeeder::class,
+            TasksTableSeeder::class,
 
         ]);
     }

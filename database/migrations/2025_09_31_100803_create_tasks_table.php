@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-           $table->id();
+            $table->id();
 
             // Relations
             $table->foreignId('task_category_id')->nullable()
@@ -42,6 +41,10 @@ return new class extends Migration
 
             // is_approved: 0 = pending, 1 = accepted, 2 = rejected
             $table->unsignedTinyInteger('is_approved')->default(0)->comment('is_approved: 0 = pending, 1 = accepted, 2 = rejected');
+
+           
+            $table->date('due_date')->nullable()->comment('Task due date');
+            $table->integer('quality_score')->nullable()->comment('Task quality score');
 
             $table->timestamps();
         });

@@ -14,6 +14,13 @@ class DepartmentSeeder extends Seeder
     {
         DB::table('departments')->insert([
             [
+                'department_name' => 'General',
+                'department_code' => 'GEN',
+                'description' => 'Handles Overall task of the organization or Department not specified',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'department_name' => 'Human Resources',
                 'department_code' => 'HR',
                 'description' => 'Handles recruitment, employee relations, payroll, and benefits.',

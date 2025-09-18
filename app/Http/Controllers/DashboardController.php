@@ -38,29 +38,46 @@ class DashboardController extends Controller
 
         $role = auth()->user()->hierarchy_level;
 
-
-        // Calling the method of attendance History
-        //  $attendanceHistory = $this->attendanceHistory($userId);
-
-        // Users
-        //  $users = User::paginate(10);
-        //  $usercount = User::count();
-         
-        //  $institutions = Institution::paginate(10);
-
         // Recent 5 tasks
         $recentTasks = Task::with('assignee')->latest()->take(5)->get();
-        // dd($recentTasks);
-        
 
+        // Tree of dashboard
+        $users = User::with('designation')->orderBy('designation_id')->get();
 
-        if ($role == 0) {
-            return view('admin.dashboard', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw','recentTasks'));
-        } else {
-            return view('layouts.employee.app', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw','recentTasks'));
+        $treeData = [];
+
+        // Store last user ID of each hierarchy level to assign as parent
+        $lastUserByLevel = [];
+
+        foreach ($users as $user) {
+            $level = $user->designation->hierarchy_level;
+
+            // Top-level (Admin)
+            if ($level == 0) {
+                $parent = '';
+            } else {
+                // Assign parent as last user of the previous level
+                $parent = $lastUserByLevel[$level - 1] ?? '';
+            }
+
+            $treeData[] = [
+                'id' => (string) $user->id,
+                'parent' => $parent,
+                'name' => $user->name . ' - ' . $user->designation->designation_name,
+            ];
+
+            $lastUserByLevel[$level] = (string) $user->id;
         }
+
+
+
+        // if ($role == 0) {
+            return view('admin.dashboard', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw', 'recentTasks','treeData'));
+        // } else {
+        //     return view('layouts.employee.app', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw', 'recentTasks'));
+        // }
     }
 
-    
+
 }
 

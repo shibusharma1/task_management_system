@@ -214,19 +214,31 @@
                                     <div class="flex items-center space-x-2">
                                         @if($task['status'] == 0)
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                            class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-yellow-100 text-yellow-800">Pending</span>
 
 
                                         @elseif($task['status'] == 1)
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-200 text-yellow-800">Progress</span>
+                                            class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-blue-100 text-blue-800">Progress</span>
 
                                         @else
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                            class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-green-100 text-green-800">Completed</span>
 
                                         @endif
-                                        <span class="text-sm text-gray-500">{{ $task['created_at'] }}</span>
+                                        @php
+                                        $dueDate = \Carbon\Carbon::parse($task['due_date']);
+                                        $today = \Carbon\Carbon::today();
+                                        @endphp
+
+                                        <span class="px-2 py-1 rounded text-sm 
+                                            @if($dueDate->isPast() && !$dueDate->isSameDay($today)) bg-red-500 text-white 
+                                            @elseif($dueDate->isSameDay($today)) bg-yellow-400 text-black 
+                                            @else bg-green-500 text-white 
+                                            @endif">
+                                            {{ $dueDate->format('Y-m-d') }}
+                                        </span>
+
                                         <button class="text-gray-400 hover:text-gray-500">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
@@ -234,10 +246,10 @@
                                 </div>
                                 <div class="mt-2 flex items-center text-sm text-gray-500">
                                     <i class="fas fa-user-tie mr-1 text-gray-400"></i>
-                                    <span class="mr-3">Assigned by: {{ $task->assignee->name ?? 'N/A'}} ({{
+                                    <span class="mr-3">Assigned By: {{ $task->assignee->name ?? 'N/A'}} ({{
                                         $task->assignee->designation->designation_name ?? 'N/A'}})</span>
-                                    {{-- <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
-                                    <span>HR Department</span> --}}
+                                    <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
+                                    <span>{{ $task->assignee->department->department_name ?? 'N/A' }}</span>
                                 </div>
                             </div>
                             @endforeach
@@ -470,8 +482,9 @@
                 <div class="bg-white shadow rounded-lg overflow-hidden">
                     <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">Team Hierarchy</h3>
+                        <div id="hierarchy-container" style="height: 600px;"></div>
                     </div>
-                    <div class="p-4">
+                    {{-- <div class="p-4">
                         <div class="space-y-4">
                             <!-- Level 1 -->
                             <div class="flex items-center">
@@ -532,7 +545,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -589,5 +602,32 @@ function formatTime(seconds) {
 }
 
 
+// scripts for tree
+document.addEventListener('DOMContentLoaded', function () {
+    Highcharts.chart('hierarchy-container', {
+        chart: {
+            inverted: true
+        },
+        title: {
+            text: 'Team Hierarchy'
+        },
+        series: [{
+            type: 'treegraph',
+            data: @json($treeData),
+            dataLabels: {
+                pointFormat: '{point.name}',
+                style: {
+                    color: '#fff',
+                    textOutline: '1px contrast'
+                }
+            },
+            marker: {
+                radius: 6
+            },
+            colors: ['#6366F1', '#4ADE80', '#FBBF24', '#F87171']
+        }]
+    });
+});
 </script>
+
 @endpush
