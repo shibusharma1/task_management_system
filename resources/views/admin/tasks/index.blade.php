@@ -167,20 +167,20 @@
                         </select>
                     </div>
 
+                    <!-- Task Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Task Name</label>
+                        <input type="text" name="name" id="task-name" 
+                            class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
+                             focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
+                    </div>
+
                     <!-- Due Date -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
                         <input type="date" name="due_date" id="due_date" 
                             class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
                                     focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
-                    </div>
-
-                    <!-- Task Name -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Task Name</label>
-                        <input type="text" name="name" id="task-name" 
-                               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
-                                      focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
                     </div>
 
                     <!-- Description -->
@@ -192,7 +192,7 @@
                     </div>
 
                     <!-- Assignee Search -->
-                    <div class="md:col-span-2">
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
                         <input type="hidden" name="assigned_to" id="assigned_to">
                         <input type="text" id="assigned_to_search" placeholder="Search user by name or email" 
@@ -203,7 +203,7 @@
                     </div>
 
                     <!-- Assigned By -->
-                    <div class="md:col-span-2">
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Assigned By</label>
                         <input type="text" value="{{ auth()->user()->name }}" 
                                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 bg-gray-100" readonly>
