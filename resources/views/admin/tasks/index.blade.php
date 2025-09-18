@@ -118,25 +118,35 @@
 </div>
 
 <!-- Modal -->
-<div id="task-modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+<div id="task-modal" class="fixed z-50 inset-0 overflow-y-auto hidden">
     <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 bg-black opacity-50"></div>
-        <div class="bg-white rounded-lg shadow-xl transform transition-all max-w-2xl w-full p-6 relative z-20">
-            <button type="button" id="close-modal-btn" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times text-lg"></i>
+        <!-- Overlay -->
+        <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+
+        <!-- Modal content -->
+        <div class="bg-white rounded-2xl shadow-2xl transform transition-all max-w-2xl w-full p-8 relative z-20">
+            <!-- Close Button -->
+            <button type="button" id="close-modal-btn" 
+                    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition">
+                <i class="fas fa-times text-xl"></i>
             </button>
 
-            <h3 class="text-lg font-medium text-gray-900 mb-4" id="modal-title">New Task</h3>
+            <!-- Modal Title -->
+            <h3 class="text-2xl font-semibold text-gray-900 mb-6" id="modal-title">New Task</h3>
 
-            <form id="task-form" method="POST" class="space-y-4" action="{{ route('tasks.store') }}">
+            <!-- Form -->
+            <form id="task-form" method="POST" class="space-y-6" action="{{ route('tasks.store') }}">
                 @csrf
                 <input type="hidden" name="_method" id="form-method" value="POST">
                 <input type="hidden" name="task_id" id="task-id">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Category -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Category</label>
-                        <select name="task_category_id" id="task_category_id" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                        <select name="task_category_id" id="task_category_id" 
+                                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
+                                       focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
                             <option value="">-- Select Category --</option>
                             @foreach($categories as $c)
                                 <option value="{{ $c->id }}">{{ $c->name }}</option>
@@ -144,9 +154,12 @@
                         </select>
                     </div>
 
+                    <!-- Priority -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Priority</label>
-                        <select name="priority_id" id="priority_id" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                        <select name="priority_id" id="priority_id" 
+                                class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
+                                       focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
                             <option value="">-- Select Priority --</option>
                             @foreach($priorities as $p)
                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
@@ -154,33 +167,59 @@
                         </select>
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700">Task Name</label>
-                        <input type="text" name="name" id="task-name" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
+                    <!-- Due Date -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                        <input type="date" name="due_date" id="due_date" 
+                            class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
+                                    focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea name="description" id="task-desc" rows="4" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2"></textarea>
+                    <!-- Task Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Task Name</label>
+                        <input type="text" name="name" id="task-name" 
+                               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
+                                      focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
                     </div>
 
-                    <!-- assignee search -->
+                    <!-- Description -->
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700">Assign To</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea name="description" id="task-desc" rows="4" 
+                                  class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
+                                         focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition"></textarea>
+                    </div>
+
+                    <!-- Assignee Search -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
                         <input type="hidden" name="assigned_to" id="assigned_to">
-                        <input type="text" id="assigned_to_search" placeholder="Search user by name or email" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2">
-                        <div id="assigned_to_suggestions" class="bg-white border mt-1 rounded shadow max-h-48 overflow-auto hidden"></div>
+                        <input type="text" id="assigned_to_search" placeholder="Search user by name or email" 
+                               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2
+                                      focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
+                        <div id="assigned_to_suggestions" 
+                             class="bg-white border mt-1 rounded-lg shadow max-h-48 overflow-auto hidden"></div>
                     </div>
 
+                    <!-- Assigned By -->
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700">Assigned By</label>
-                        <input type="text" value="{{ auth()->user()->name }}" class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2 bg-gray-100" readonly>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Assigned By</label>
+                        <input type="text" value="{{ auth()->user()->name }}" 
+                               class="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 bg-gray-100" readonly>
                     </div>
                 </div>
 
-                <div class="flex justify-end space-x-2 mt-4">
-                    <button type="button" id="cancel-btn" class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">Cancel</button>
-                    <button type="submit" id="save-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save</button>
+                <!-- Buttons -->
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" id="cancel-btn" 
+                            class="px-5 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition font-medium">
+                        Cancel
+                    </button>
+                    <button type="submit" id="save-btn" 
+                            class="px-5 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
+                        Save
+                    </button>
                 </div>
             </form>
         </div>
