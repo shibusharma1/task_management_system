@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendance;
-use App\Models\Institution;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Attendance;
+use App\Models\Designation;
+use App\Models\Institution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Psy\Command\HistoryCommand;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -41,41 +42,38 @@ class DashboardController extends Controller
         // Recent 5 tasks
         $recentTasks = Task::with('assignee')->latest()->take(5)->get();
 
-        // Tree of dashboard
-        $users = User::with('designation')->orderBy('designation_id')->get();
+        if (auth()->user()->designation->hierarchy_level == 0) {
+            $pendingTask = Task::where('status', 0)->count();
+            $completedTask = Task::where('status', 2)->count();
 
-        $treeData = [];
-
-        // Store last user ID of each hierarchy level to assign as parent
-        $lastUserByLevel = [];
-
-        foreach ($users as $user) {
-            $level = $user->designation->hierarchy_level;
-
-            // Top-level (Admin)
-            if ($level == 0) {
-                $parent = '';
-            } else {
-                // Assign parent as last user of the previous level
-                $parent = $lastUserByLevel[$level - 1] ?? '';
-            }
-
-            $treeData[] = [
-                'id' => (string) $user->id,
-                'parent' => $parent,
-                'name' => $user->name . ' - ' . $user->designation->designation_name,
-            ];
-
-            $lastUserByLevel[$level] = (string) $user->id;
+        } else {
+            $pendingTask = Task::where('assigned_to', auth()->user()->id)->where('status', 0)->count();
+            $completedTask = Task::where('assigned_to', auth()->user()->id)->where('status', 2)->count();
         }
+        // Fetch all designations ordered by hierarchy_level
+        $designations = Designation::orderBy('hierarchy_level')->get();
+
+        // Group users by designation
+        $usersByDesignation = User::with('designation')->get()->groupBy(function ($user) {
+            return $user->designation->hierarchy_level;
+        });
 
 
 
-        // if ($role == 0) {
-            return view('admin.dashboard', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw', 'recentTasks','treeData'));
-        // } else {
-        //     return view('layouts.employee.app', compact('checkedIn', 'checkedOut', 'checkInFormatted', 'checkOutFormatted', 'checkInRaw', 'checkOutRaw', 'recentTasks'));
-        // }
+        return view('admin.dashboard', compact(
+            'checkedIn',
+            'checkedOut',
+            'checkInFormatted',
+            'checkOutFormatted',
+            'checkInRaw',
+            'checkOutRaw',
+            'recentTasks',
+            'designations',
+            'usersByDesignation',
+            'pendingTask',
+            'completedTask'
+        ));
+
     }
 
 

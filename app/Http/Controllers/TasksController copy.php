@@ -50,6 +50,7 @@ class TasksController extends Controller
             'assigned_to' => ['nullable','exists:users,id'],
             'assigned_by' => ['nullable','exists:users,id'],
             'is_requested' => ['nullable','boolean'],
+            'due_date' => ['nullable', 'date', 'after_or_equal:today'],
             // 'is_approved' => ['required','integer','in:0,1,2'],
         ]);
 

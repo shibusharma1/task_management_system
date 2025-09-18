@@ -55,7 +55,7 @@ class TasksController extends Controller
             $query->where('status', intval($statusFilter));
         }
 
-        $tasks = $query->where('assigned_to',auth()->user()->id)->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
+        $tasks = $query->where('assigned_to', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
 
         $priorities = Priority::orderBy('id')->get();
         $categories = TaskCategory::orderBy('name')->get();
@@ -66,12 +66,14 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $data = $request->validate([
             'task_category_id' => ['nullable', 'exists:task_categories,id'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'priority_id' => ['nullable', 'exists:priorities,id'],
             'assigned_to' => ['nullable', 'exists:users,id'],
+            'due_date' => ['nullable', 'date', 'after_or_equal:today'],
         ]);
 
         // Assign defaults
@@ -108,6 +110,7 @@ class TasksController extends Controller
             'description' => ['nullable', 'string'],
             'priority_id' => ['nullable', 'exists:priorities,id'],
             'assigned_to' => ['nullable', 'exists:users,id'],
+            'due_date' => ['nullable', 'date', 'after_or_equal:today'],
         ]);
 
         $data['assigned_by'] = auth()->id();

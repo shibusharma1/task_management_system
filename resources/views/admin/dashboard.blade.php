@@ -41,12 +41,12 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Pending Tasks</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">5</div>
-                                        <div class="ml-2 flex items-baseline text-sm font-semibold text-red-600">
+                                        <div class="text-2xl font-semibold text-gray-900">{{ $pendingTask }}</div>
+                                        {{-- <div class="ml-2 flex items-baseline text-sm font-semibold text-red-600">
                                             <i class="fas fa-arrow-up text-xs"></i>
                                             <span class="sr-only">Increased by</span>
                                             2
-                                        </div>
+                                        </div> --}}
                                     </dd>
                                 </dl>
                             </div>
@@ -65,12 +65,12 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Completed Today</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">3</div>
-                                        <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                                        <div class="text-2xl font-semibold text-gray-900">{{ $completedTask }}</div>
+                                        {{-- <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
                                             <i class="fas fa-arrow-up text-xs"></i>
                                             <span class="sr-only">Increased by</span>
                                             1
-                                        </div>
+                                        </div> --}}
                                     </dd>
                                 </dl>
                             </div>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-                <!-- Team Performance -->
+                <!-- Organization Performance -->
                 <div class="bg-white overflow-hidden shadow rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <div class="flex items-center">
@@ -87,14 +87,15 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Team Performance</dt>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Organization Performance</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">82%</div>
-                                        <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                                        {{-- <div class="text-2xl font-semibold text-gray-900">82%</div> --}}
+                                        <div class="text-2xl font-semibold text-gray-900">-</div>
+                                        {{-- <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
                                             <i class="fas fa-arrow-up text-xs"></i>
                                             <span class="sr-only">Increased by</span>
                                             5%
-                                        </div>
+                                        </div> --}}
                                     </dd>
                                 </dl>
                             </div>
@@ -113,12 +114,13 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Attendance</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">95%</div>
-                                        <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                                        {{-- <div class="text-2xl font-semibold text-gray-900">95%</div> --}}
+                                        <div class="text-2xl font-semibold text-gray-900">-</div>
+                                        {{-- <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
                                             <i class="fas fa-arrow-up text-xs"></i>
                                             <span class="sr-only">Increased by</span>
                                             2%
-                                        </div>
+                                        </div> --}}
                                     </dd>
                                 </dl>
                             </div>
@@ -193,7 +195,7 @@
                                 </div>
                                 <div class="mt-2 flex items-center text-sm text-gray-500">
                                     <i class="fas fa-user mr-1 text-gray-400"></i>
-                                    <span class="mr-3">Requested by: Michael (Team Lead)</span>
+                                    <span class="mr-3">Requested by: Michael (Organization Lead)</span>
                                     <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
                                     <span>Marketing Department</span>
                                 </div>
@@ -231,7 +233,7 @@
                                         $today = \Carbon\Carbon::today();
                                         @endphp
 
-                                        <span class="px-2 py-1 rounded text-sm 
+                                        <span class="px-2 py-1 rounded text-xs 
                                             @if($dueDate->isPast() && !$dueDate->isSameDay($today)) bg-red-500 text-white 
                                             @elseif($dueDate->isSameDay($today)) bg-yellow-400 text-black 
                                             @else bg-green-500 text-white 
@@ -261,7 +263,7 @@
                         </div>
                     </div>
 
-                    <!-- Team Performance Charts -->
+                    <!-- Organization Performance Charts -->
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <!-- Task Completion Rate -->
                         <div class="bg-white p-4 shadow rounded-lg">
@@ -430,11 +432,11 @@
                                 </div>
                                 <div class="ml-3 flex-1">
                                     <div class="flex items-center justify-between">
-                                        <p class="text-sm font-medium text-gray-900">Team Meeting</p>
+                                        <p class="text-sm font-medium text-gray-900">Organization Meeting</p>
                                         <p class="text-sm text-gray-500">10:30 AM</p>
                                     </div>
                                     <p class="mt-1 text-sm text-gray-500">Weekly sprint planning with development
-                                        team</p>
+                                        Organization</p>
                                 </div>
                             </div>
                         </div>
@@ -478,11 +480,10 @@
                     </div>
                 </div>
 
-                <!-- Team Hierarchy -->
+                <!-- Organization Hierarchy -->
                 <div class="bg-white shadow rounded-lg overflow-hidden">
                     <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900">Team Hierarchy</h3>
-                        <div id="hierarchy-container" style="height: 600px;"></div>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">Organization Hierarchy</h3>
                     </div>
                     {{-- <div class="p-4">
                         <div class="space-y-4">
@@ -517,7 +518,7 @@
                                             3</div>
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">Michael Chen</p>
-                                            <p class="text-xs text-gray-500">Team Lead</p>
+                                            <p class="text-xs text-gray-500">Organization Lead</p>
                                         </div>
                                     </div>
 
@@ -546,6 +547,43 @@
                             </div>
                         </div>
                     </div> --}}
+                    <div class="p-6 bg-gray-50">
+                        {{-- <h2 class="text-2xl font-bold mb-6 text-gray-800">Organization Hierarchy</h2> --}}
+
+                        <div class="space-y-4">
+                            @php
+                            function renderUsers($level, $usersByDesignation) {
+                            if(!isset($usersByDesignation[$level])) return;
+
+                            echo '<div class="ml-'.($level*8).' pl-4 border-l-4 border-gray-300 space-y-2">';
+                                foreach($usersByDesignation[$level] as $user) {
+                                echo '<div
+                                    class="flex items-center transform hover:scale-105 transition-transform duration-500">
+                                    ';
+                                    echo '<div
+                                        class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
+                                        ';
+                                        echo $level+1;
+                                        echo '</div>';
+                                    echo '<div class="ml-3">';
+                                        echo '<p class="text-sm font-medium text-gray-900">'.$user->name.'</p>';
+                                        echo '<p class="text-xs text-gray-500">'.$user->designation->designation_name.'
+                                        </p>';
+                                        echo '</div>';
+                                    echo '</div>';
+
+                                // Recursive call for next level
+                                renderUsers($level+1, $usersByDesignation);
+                                }
+                                echo '</div>';
+                            }
+                            @endphp
+
+                            {{-- Start rendering from level 0 --}}
+                            @php renderUsers(0, $usersByDesignation); @endphp
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -602,32 +640,5 @@ function formatTime(seconds) {
 }
 
 
-// scripts for tree
-document.addEventListener('DOMContentLoaded', function () {
-    Highcharts.chart('hierarchy-container', {
-        chart: {
-            inverted: true
-        },
-        title: {
-            text: 'Team Hierarchy'
-        },
-        series: [{
-            type: 'treegraph',
-            data: @json($treeData),
-            dataLabels: {
-                pointFormat: '{point.name}',
-                style: {
-                    color: '#fff',
-                    textOutline: '1px contrast'
-                }
-            },
-            marker: {
-                radius: 6
-            },
-            colors: ['#6366F1', '#4ADE80', '#FBBF24', '#F87171']
-        }]
-    });
-});
 </script>
-
 @endpush
