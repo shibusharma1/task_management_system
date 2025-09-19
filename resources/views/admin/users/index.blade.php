@@ -39,6 +39,7 @@
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Name</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Email</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Designation</th>
+                        <th class="px-4 py-2 text-left font-semibold text-gray-700">Department</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Actions</th>
                     </tr>
                 </thead>
@@ -49,10 +50,11 @@
                         <td class="px-4 py-2 font-semibold text-gray-800">{{ $user->name }}</td>
                         <td class="px-4 py-2 text-gray-600">{{ $user->email }}</td>
                         <td class="px-4 py-2 text-gray-600">{{ $user->designation->designation_name ?? '-' }}</td>
+                        <td class="px-4 py-2 text-gray-600">{{ $user->Department->department_name ?? '-' }}</td>
                         <td class="px-4 py-2 flex space-x-2">
                             <button class="edit-btn text-indigo-600 hover:text-indigo-800" data-id="{{ $user->id }}"
                                 data-name="{{ $user->name }}" data-email="{{ $user->email }}"
-                                data-designation="{{ $user->designation_id }}">
+                                data-designation="{{ $user->designation_id }}" data-department="{{ $user->department_id }}" >
                                 <i class="fas fa-edit"></i>
                             </button>
                             <form method="POST" action="{{ route('users.destroy', $user) }}" class="inline delete-form">
@@ -116,7 +118,7 @@
                 <!-- Password -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password" id="user-password"
+                    <input type="password" name="password" id="user-password" placeholder="Enter Password or While updating keep blank for no change"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         required>
                 </div>
@@ -141,9 +143,9 @@
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         required>
                         <option value="">Select Department</option>
-                        {{-- @foreach($departments as $department) --}}
-                        {{-- <option value="{{ $department->id }}">{{ $department->name }}</option> --}}
-                        {{-- @endforeach --}}
+                        @foreach($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -176,6 +178,8 @@
     const emailInput = document.getElementById('user-email');
     const passwordInput = document.getElementById('user-password');
     const designationInput = document.getElementById('user-designation');
+    const departmentInput = document.getElementById('user-department');
+
 
     // Open modal for create
     newBtn.addEventListener('click', () => {
@@ -203,6 +207,7 @@
             emailInput.value = btn.dataset.email;
             passwordInput.value = ''; // leave blank
             designationInput.value = btn.dataset.designation;
+            departmentInput.value = btn.dataset.department;
             modal.classList.remove('hidden');
         });
     });

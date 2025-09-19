@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
+    
     protected $fillable = [
         'task_category_id',
         'name',
@@ -16,7 +17,8 @@ class Task extends Model
         'assigned_to',
         'assigned_by',
         'is_requested',
-        'is_approved'
+        'is_approved',
+        'due_date'
     ];
 
     public function category()

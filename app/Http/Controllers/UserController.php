@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\User;
 use App\Models\Designation;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $query = User::with('designation');
+        $query = User::with('designation','department');
 
         if ($search) {
             $query->where('name', 'like', "%{$search}%")
@@ -27,18 +28,20 @@ class UserController extends Controller
 
         $users = $query->orderBy('id', 'asc')->paginate(10);
         $designations = Designation::orderBy('hierarchy_level')->get();
+        $departments = Department::orderBy('id')->get();
 
-        return view('admin.users.index', compact('users', 'designations', 'search'));
+        return view('admin.users.index', compact('users', 'designations','departments', 'search'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
             'designation_id' => 'required|exists:designations,id',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         try {
@@ -47,6 +50,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'designation_id' => $request->designation_id,
+                'department_id' => $request->department_id,
             ]);
 
             return redirect()->route('users.index')->with('success', 'User created successfully!');
@@ -96,6 +100,7 @@ class UserController extends Controller
             ],
             'password' => 'nullable|string|min:8',
             'designation_id' => 'required|exists:designations,id',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         // Prepare data for update
@@ -103,6 +108,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'designation_id' => $request->designation_id,
+            'department_id' => $request->department_id,
         ];
 
         // Only hash password if provided

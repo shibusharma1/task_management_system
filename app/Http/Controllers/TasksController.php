@@ -96,11 +96,27 @@ class TasksController extends Controller
         return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
+    // public function show(Task $task)
+    // {
+    //     $task->load(['priority', 'category', 'assignee', 'requester']);
+    //     // Format due_date for <input type="date">
+    //     if ($task->due_date) {
+    //         $task->due_date = \Carbon\Carbon::parse($task->due_date)->format('Y-m-d');
+    //     }
+    //     return response()->json($task);
+    // }
     public function show(Task $task)
     {
         $task->load(['priority', 'category', 'assignee', 'requester']);
-        return response()->json($task);
+
+        $taskArray = $task->toArray();
+        $taskArray['due_date'] = $task->due_date
+            ? \Carbon\Carbon::parse($task->due_date)->format('Y-m-d')
+            : null;
+
+        return response()->json($taskArray);
     }
+
 
     public function update(Request $request, Task $task)
     {
