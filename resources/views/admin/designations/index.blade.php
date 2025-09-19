@@ -94,13 +94,13 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Designation Name</label>
                     <input type="text" name="designation_name" id="designation-name"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         required>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Hierarchy Level</label>
                     <input type="number" name="hierarchy_level" id="designation-level"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         required>
                 </div>
                 <div class="flex justify-end space-x-2">
