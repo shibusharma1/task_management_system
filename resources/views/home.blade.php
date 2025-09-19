@@ -513,7 +513,7 @@
             </div>
             
             <div class="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-                <p>&copy; 2025 TaskFlow. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} Passion Chasers. All rights reserved.</p>
             </div>
         </div>
     </footer>
