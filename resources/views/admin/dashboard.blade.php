@@ -202,7 +202,7 @@
                             </div> --}}
 
                             <!-- Completed Task -->
-                            @foreach($recentTasks as $task)
+                            @forelse($recentTasks as $task)
                             <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
@@ -254,7 +254,14 @@
                                     <span>{{ $task->assignee->department->department_name ?? 'N/A' }}</span>
                                 </div>
                             </div>
-                            @endforeach
+                            @empty
+                            {{-- Content to display if the collection is empty --}}
+                            <div class="flex items-center justify-center py-10">
+                                <p class="text-gray-600 text-lg">No items found.</p>
+                            </div>
+
+                            @endforelse
+                            {{-- @endforelse --}}
 
                         </div>
                         <div class="px-4 py-4 sm:px-6 bg-gray-50 text-sm text-right">
@@ -297,14 +304,17 @@
                                     {{-- <p id="attendance-status" class="text-lg font-semibold text-gray-900">Checked
                                         In: 09:15 AM</p> --}}
                                     @if($checkedIn && !$checkedOut)
-                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked In: {{
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked
+                                        In: {{
                                         $checkInFormatted }}</p>
                                     @elseif($checkedOut && $checkedIn)
-                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked Out:
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked
+                                        Out:
                                         {{
                                         $checkOutFormatted }}</p>
                                     @else
-                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked In:
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">Checked
+                                        In:
                                         --:-- -- </p>
                                     @endif
 
