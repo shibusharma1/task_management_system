@@ -22,6 +22,7 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'app_name' => 'nullable|string|max:255',
             'app_logo' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048',

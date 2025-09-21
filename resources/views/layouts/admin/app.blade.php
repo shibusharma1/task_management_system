@@ -28,6 +28,29 @@
 </head>
 
 <body class="bg-gray-50 font-sans">
+
+
+    <script>
+        @if(session('error'))
+    Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'error',
+    title: "{{ session('error') }}",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    background: '#fff',
+    color: '#333',
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+    });
+    @endif
+    </script>
+
+
     <div class="flex h-screen overflow-hidden">
         @include('layouts.admin.partials.sidebar')
         <div class="flex flex-col flex-1">

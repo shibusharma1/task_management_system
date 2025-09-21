@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>TaskFlow - Modern Task Management System</title>
+    <title>{{ $setting->app_name }} - Modern Task Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -144,7 +144,7 @@
                     <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center text-white font-bold mr-3 shadow-md">
                         <i class="fas fa-tasks"></i>
                     </div>
-                    <h1 class="text-xl font-bold text-transparent bg-clip-text gradient-bg">TaskFlow</h1>
+                    <h1 class="text-xl font-bold text-transparent bg-clip-text gradient-bg">{{ $setting->app_name }}</h1>
                 </div>
                 
                 <nav class="hidden md:flex space-x-8">
@@ -196,7 +196,7 @@
                 <span class="text-primary-400">Maximize Productivity</span>
             </h2>
             <p class="text-lg md:text-xl mb-8 text-primary-100">
-                TaskFlow helps individuals and teams organize tasks, track progress, and achieve goals faster with intuitive task management tools.
+                {{ $setting->app_name }} helps individuals and teams organize tasks, track progress, and achieve goals faster with intuitive task management tools.
             </p>
     
             <!-- Buttons -->
@@ -244,9 +244,9 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2">
-                    <h3 class="text-3xl md:text-4xl font-bold mb-6">About TaskFlow</h3>
+                    <h3 class="text-3xl md:text-4xl font-bold mb-6">About {{ $setting->app_name }}</h3>
                     <p class="text-gray-600 mb-4">
-                        TaskFlow was founded in 2020 with a simple mission: to help teams work more efficiently by providing intuitive task management solutions.
+                        {{ $setting->app_name }} was founded in 2020 with a simple mission: to help teams work more efficiently by providing intuitive task management solutions.
                     </p>
                     <p class="text-gray-600 mb-6">
                         Our platform combines powerful features with an elegant interface, making it easy for teams of all sizes to organize, track, and complete their projects successfully.
@@ -297,7 +297,7 @@
                         <i class="fas fa-graduation-cap text-2xl"></i>
                     </div>
                     <h4 class="text-xl font-bold mb-2">Training</h4>
-                    <p class="text-gray-600">Comprehensive training programs for your team to maximize TaskFlow's potential.</p>
+                    <p class="text-gray-600">Comprehensive training programs for your team to maximize {{ $setting->app_name }}'s potential.</p>
                 </div>
                 
                 <div class="services-card bg-white rounded-xl shadow-md p-6 border border-gray-100">
@@ -313,7 +313,7 @@
                         <i class="fas fa-puzzle-piece text-2xl"></i>
                     </div>
                     <h4 class="text-xl font-bold mb-2">Integration</h4>
-                    <p class="text-gray-600">Seamlessly connect TaskFlow with your existing tools and workflows.</p>
+                    <p class="text-gray-600">Seamlessly connect {{ $setting->app_name }} with your existing tools and workflows.</p>
                 </div>
                 
                 <div class="services-card bg-white rounded-xl shadow-md p-6 border border-gray-100">
@@ -400,7 +400,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h3 class="text-3xl md:text-4xl font-bold mb-4">Trusted by Teams Worldwide</h3>
-                <p class="text-gray-600">See what our users say about their experience with TaskFlow</p>
+                <p class="text-gray-600">See what our users say about their experience with {{ $setting->app_name }}</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -412,7 +412,7 @@
                             <p class="text-gray-500 text-sm">Project Manager</p>
                         </div>
                     </div>
-                    <p class="text-gray-700">"TaskFlow has transformed how our team works. We're 40% more productive since we started using it."</p>
+                    <p class="text-gray-700">"{{ $setting->app_name }} has transformed how our team works. We're 40% more productive since we started using it."</p>
                     <div class="mt-4 flex text-yellow-400">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -448,7 +448,7 @@
                             <p class="text-gray-500 text-sm">Software Engineer</p>
                         </div>
                     </div>
-                    <p class="text-gray-700">"I've tried many task managers, but TaskFlow strikes the perfect balance between simplicity and power."</p>
+                    <p class="text-gray-700">"I've tried many task managers, but {{ $setting->app_name }} strikes the perfect balance between simplicity and power."</p>
                     <div class="mt-4 flex text-yellow-400">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -470,7 +470,7 @@
                         <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center text-white font-bold mr-3">
                             <i class="fas fa-tasks"></i>
                         </div>
-                        <h2 class="text-white text-xl font-bold">TaskFlow</h2>
+                        <h2 class="text-white text-xl font-bold">{{ $setting->app_name }}</h2>
                     </div>
                     <p class="mb-4">The modern task management platform for teams who want to achieve more.</p>
                     <div class="flex space-x-4">

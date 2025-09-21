@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
 use App\Observers\ModelObserver;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,5 +41,11 @@ class AppServiceProvider extends ServiceProvider
                 $class::observe(ModelObserver::class);
             }
         }
+        // Share 'setting' with all views
+        View::composer('*', function ($view) {
+            $setting = Setting::first();
+            $view->with('setting', $setting);
+        });
+        
     }
 }

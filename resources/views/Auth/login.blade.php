@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login | TaskFlow Pro</title>
+    <title>Login | {{ $setting->app_name }} </title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -36,7 +36,7 @@
             <div class="mx-auto w-16 h-16 rounded-lg bg-indigo-600 flex items-center justify-center mb-4">
                 <i class="fas fa-tasks text-white text-2xl"></i>
             </div>
-            <h1 class="text-3xl font-bold text-gray-800">TaskFlow Pro</h1>
+            <h1 class="text-3xl font-bold text-gray-800">{{ $setting->app_name }} Pro</h1>
             <p class="text-gray-600 mt-2">Inter-Office Task Management System</p>
         </div>
 
@@ -121,19 +121,19 @@
             </div>
 
             <!-- Footer Links -->
-            <div class="bg-gray-50 px-6 py-4 rounded-b-xl border-t border-gray-200">
+            {{-- <div class="bg-gray-50 px-6 py-4 rounded-b-xl border-t border-gray-200">
                 <div class="text-center text-sm text-gray-600">
                     Don't have an account?
                     <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-500 ml-1">
                         Register here
                     </a>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Copyright Notice -->
         <div class="mt-8 text-center text-xs text-gray-500">
-            &copy; {{ date('Y') }} TaskFlow Pro. All rights reserved.
+            &copy; {{ date('Y') }} {{ $setting->app_name }} Pro. All rights reserved.
         </div>
     </div>
 

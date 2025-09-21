@@ -8,7 +8,7 @@
   <div class="flex flex-col w-64 bg-white border-r border-gray-200">
     <!-- Logo -->
     <div class="flex items-center justify-center py-5 px-4 bg-indigo-600">
-      <h1 class="text-white font-bold text-xl">TaskFlow Pro</h1>
+      <h1 class="text-white font-bold text-xl">{{ $setting->app_name }}</h1>
     </div>
 
     <!-- Navigation -->

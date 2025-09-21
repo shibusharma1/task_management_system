@@ -2,6 +2,8 @@
 @section('title', 'Admin | Settings')
 
 @push('styles')
+    {{-- SweetAlert2 CDN --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 @endpush
 
 @section('contents')
@@ -22,7 +24,7 @@
                 @method('PUT')
             @endif
 
-            <!-- General -->
+            <!-- General Settings -->
             <h3 class="text-lg font-semibold text-gray-700 mb-4">General Settings</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
@@ -116,3 +118,36 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    {{-- SweetAlert2 CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if(session('success'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+            @endif
+
+            @if(session('error'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "{{ session('error') }}",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+            @endif
+        });
+    </script>
+@endpush
