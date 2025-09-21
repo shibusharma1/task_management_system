@@ -64,7 +64,7 @@ class ModelObserver
             $newValues = $new ? json_encode($new, JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR) : null;
 
             AuditLog::create([
-                'user_id'        => $user?->id,
+                'user_id'        => auth()->user()->id,
                 'action'         => $action,
                 'auditable_type' => is_object($model) ? get_class($model) : null,
                 'auditable_id'   => data_get($model, 'id'),
