@@ -34,10 +34,10 @@
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">User</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Action</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Model</th>
-                        <th class="px-4 py-2 text-left font-semibold text-gray-700">Changes</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">IP Address</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Location</th>
                         <th class="px-4 py-2 text-left font-semibold text-gray-700">Date</th>
+                        <th class="px-4 py-2 text-left font-semibold text-gray-700">Changes</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -60,6 +60,9 @@
                         <td class="px-4 py-2 text-gray-600">
                             {{ class_basename($log->auditable_type) }} (ID: {{ $log->auditable_id }})
                         </td>
+                        <td class="px-4 py-2 text-gray-600">{{ $log->ip_address ?? '-' }}</td>
+                        <td class="px-4 py-2 text-gray-600">{{ $log->location ?? '-' }}</td>
+                        <td class="px-4 py-2 text-gray-600">{{ $log->created_at->format('d M Y, H:i') }}</td>
                         <td class="px-4 py-2">
                             @if($log->old_values || $log->new_values)
                                 <button onclick="toggleDetails({{ $log->id }})"
@@ -80,9 +83,6 @@
                                 <span class="text-gray-400">-</span>
                             @endif
                         </td>
-                        <td class="px-4 py-2 text-gray-600">{{ $log->ip_address ?? '-' }}</td>
-                        <td class="px-4 py-2 text-gray-600">{{ $log->location ?? '-' }}</td>
-                        <td class="px-4 py-2 text-gray-600">{{ $log->created_at->format('d M Y, H:i') }}</td>
                     </tr>
                     @empty
                     <tr>
