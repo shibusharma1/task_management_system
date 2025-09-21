@@ -76,9 +76,11 @@ class DashboardController extends Controller
             'pendingTask',
             'completedTask'
         ));
-
     }
 
+        public function profile(){
+            return view('admin.profile');
+        }
 
-}
+    }
 

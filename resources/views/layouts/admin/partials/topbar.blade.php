@@ -28,8 +28,8 @@
 
             <!-- Dropdown Menu -->
             <div id="quickActionsDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
-                <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+                <a href="{{ route('profile')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                <a href="{{ route('logout')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
             </div>
         </div>
     </div>

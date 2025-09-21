@@ -48,6 +48,7 @@ Route::get('/clear-all', function () {
 // Group for Admin only (role:0)
 Route::prefix('admin')->middleware(['auth', 'role:0'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('designations', [DesignationController::class, 'index'])->name('designations.index');
     Route::post('designations', [DesignationController::class, 'store'])->name('designations.store');
     Route::get('designations/{designation}/edit', [DesignationController::class, 'edit'])->name('designations.edit');
