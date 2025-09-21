@@ -157,6 +157,9 @@
           <a href="#" class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100">
             <i class="fas fa-file-alt mr-2"></i> Reports
           </a>
+          <a href="{{ route('auditlog.index')}}" class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100">
+            <i class="fas fa-history mr-2"></i> Audit Logs
+          </a>
         </div>
         @endif
       </div>

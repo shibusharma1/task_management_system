@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\EmployeeDetailController;
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
 
 
 // Auths
@@ -115,7 +117,7 @@ Route::prefix('admin')->middleware(['auth', 'role:0'])->group(function () {
         Route::put('institutions/{institution}', [InstitutionsController::class, 'update'])->name('institutions.update');
         Route::delete('institutions/{institution}', [InstitutionsController::class, 'destroy'])->name('institutions.destroy');
     });
-
+    Route::get('/auditlog',[AuditLogController::class,'index'])->name('auditlog.index');
 
 });
 
