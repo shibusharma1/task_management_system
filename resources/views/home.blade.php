@@ -179,7 +179,10 @@
 
                 <div class="flex items-center space-x-4">
                     <a href="{{ route('login') }}"
-                        class="gradient-bg text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition duration-300 shadow-md hover:shadow-lg">Login</a>
+                        class="hidden md:flex gradient-bg text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition duration-300 shadow-md hover:shadow-lg">Login</a>
+
+                        {{-- <a href="#"
+                        class="hidden md:flex gradient-bg text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition duration-300 shadow-md hover:shadow-lg">Admin</a> --}}
 
                     <!-- Mobile menu button -->
                     <button id="mobile-menu-button" class="md:hidden text-gray-600">
@@ -202,9 +205,6 @@
                     class="text-gray-600 hover:text-primary-600 transition duration-300 font-medium">Features</a>
                 <a href="#testimonials"
                     class="text-gray-600 hover:text-primary-600 transition duration-300 font-medium">Testimonials</a>
-                <a href="#pricing"
-                    class="text-gray-600 hover:text-primary-600 transition duration-300 font-medium">Pricing</a>
-                <a href="#faq" class="text-gray-600 hover:text-primary-600 transition duration-300 font-medium">FAQ</a>
                 <a href="{{ route('login') }}"
                     class="text-gray-600 hover:text-primary-600 transition duration-300 font-medium">Login</a>
             </div>
@@ -212,7 +212,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative gradient-bg text-white py-20 flex items-center justify-center overflow-hidden">
+    <section class="relative gradient-bg text-white py-20 flex items-center justify-center overflow-hidden" id="home">
         <!-- Floating background shapes -->
         <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
             <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full animate-float"></div>
@@ -233,7 +233,7 @@
 
             <!-- Buttons -->
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="{{ route('register') }}"
+                <a href="{{ route('login') }}"
                     class="bg-white text-primary-600 px-6 py-4 rounded-lg font-semibold text-center shadow-lg hover:bg-gray-50 transition duration-300 flex items-center justify-center">
                     <span>Get Started</span>
                     <i class="fas fa-arrow-right ml-2"></i>
@@ -254,11 +254,11 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div class="p-6 rounded-lg hover:bg-gray-50 transition duration-300">
-                    <p class="text-3xl md:text-4xl font-bold text-primary-600">K+</p>
+                    <p class="text-3xl md:text-4xl font-bold text-primary-600">{{$userCount}}K+</p>
                     <p class="text-gray-600 mt-2">Active Users</p>
                 </div>
                 <div class="p-6 rounded-lg hover:bg-gray-50 transition duration-300">
-                    <p class="text-3xl md:text-4xl font-bold text-primary-600">M+</p>
+                    <p class="text-3xl md:text-4xl font-bold text-primary-600">{{$taskCount}}M+</p>
                     <p class="text-gray-600 mt-2">Tasks Completed</p>
                 </div>
                 <div class="p-6 rounded-lg hover:bg-gray-50 transition duration-300">
@@ -429,22 +429,22 @@
                     <p class="text-gray-600">Never miss a deadline with customizable notifications and alerts.</p>
                 </div>
 
-                <div class="features-card bg-white rounded-xl p-6 shadow-sm">
+                {{-- <div class="features-card bg-white rounded-xl p-6 shadow-sm">
                     <div
                         class="w-14 h-14 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center mb-4">
                         <i class="fas fa-calendar-alt text-2xl"></i>
                     </div>
                     <h4 class="text-xl font-bold mb-2">Calendar Integration</h4>
                     <p class="text-gray-600">Sync tasks with your calendar and plan your schedule efficiently.</p>
-                </div>
+                </div> --}}
 
-                <div class="features-card bg-white rounded-xl p-6 shadow-sm">
+                {{-- <div class="features-card bg-white rounded-xl p-6 shadow-sm">
                     <div class="w-14 h-14 rounded-lg bg-red-100 text-red-600 flex items-center justify-center mb-4">
                         <i class="fas fa-mobile-alt text-2xl"></i>
                     </div>
                     <h4 class="text-xl font-bold mb-2">Mobile Access</h4>
                     <p class="text-gray-600">Manage tasks on the go with our iOS and Android mobile apps.</p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -462,9 +462,9 @@
                     <div class="flex items-center mb-4">
                         <div
                             class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center font-bold text-primary-700 mr-4 testimonial-avatar">
-                            JD</div>
+                            SN</div>
                         <div>
-                            <h4 class="font-bold">John Doe</h4>
+                            <h4 class="font-bold">Shikshya Nepal</h4>
                             <p class="text-gray-500 text-sm">Project Manager</p>
                         </div>
                     </div>
@@ -483,9 +483,9 @@
                     <div class="flex items-center mb-4">
                         <div
                             class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center font-bold text-primary-700 mr-4 testimonial-avatar">
-                            SM</div>
+                            CS</div>
                         <div>
-                            <h4 class="font-bold">Sarah Miller</h4>
+                            <h4 class="font-bold">Charu SHrestha</h4>
                             <p class="text-gray-500 text-sm">Marketing Director</p>
                         </div>
                     </div>
@@ -504,9 +504,9 @@
                     <div class="flex items-center mb-4">
                         <div
                             class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center font-bold text-primary-700 mr-4 testimonial-avatar">
-                            RJ</div>
+                            SS</div>
                         <div>
-                            <h4 class="font-bold">Robert Johnson</h4>
+                            <h4 class="font-bold">Shibu Sharma</h4>
                             <p class="text-gray-500 text-sm">Software Engineer</p>
                         </div>
                     </div>
@@ -564,24 +564,26 @@
                 <div>
                     <h3 class="text-white font-semibold mb-6 text-lg">Product</h3>
                     <ul class="space-y-4">
+                        <li><a href="#home" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Home</a></li>
                         <li><a href="#features" class="hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Features</a></li>
-                        <li><a href="#pricing" class="hover:text-white transition duration-300 flex items-center">
-                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Pricing</a></li>
+                        {{-- <li><a href="#pricing" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Pricing</a></li> --}}
                         <li><a href="#services" class="hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Services</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
-                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Integrations</a></li>
+                        <li><a href="#testimonials" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Testimonials</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="text-white font-semibold mb-6 text-lg">Resources</h3>
                     <ul class="space-y-4">
-                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
-                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Blog</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
-                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Webinars</a></li>
+                        {{-- <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Blog</a></li> --}}
+                        {{-- <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Webinars</a></li> --}}
                         <li><a href="#faq" class="hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>FAQ</a></li>
                         <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
@@ -594,8 +596,8 @@
                     <ul class="space-y-4">
                         <li><a href="#about" class="hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>About Us</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
-                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Careers</a></li>
+                        {{-- <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Careers</a></li> --}}
                         <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Contact</a></li>
                         <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
@@ -603,6 +605,27 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- Newsletter Subscription -->
+            <div class="mt-16 pt-8 border-t border-gray-800">
+                <div class="md:flex md:items-center md:justify-between">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <h3 class="text-white text-lg font-semibold mb-2">Stay Updated</h3>
+                        <p class="text-gray-500">Subscribe to our newsletter for the latest updates and features.</p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <form class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" placeholder="Your email address" 
+                                class="flex-grow px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            <button type="submit" 
+                                class="gradient-bg text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition duration-300 shadow-md">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Copyright -->
             <div class="mt-8 pt-8 border-t border-gray-800 text-sm text-center">
