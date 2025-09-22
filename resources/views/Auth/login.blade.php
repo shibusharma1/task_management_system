@@ -11,7 +11,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="{{ asset('images/passionchasers.png')}}" />
+    @if($setting && $setting->favicon)
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('storage/' . $setting->favicon) }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $setting->favicon) }}">
+    @else
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/passionchasers.png') }}">
+    @endif
+
 
     <style>
         body {
@@ -33,10 +39,18 @@
     <div class="w-full max-w-md">
         <!-- Logo Header -->
         <div class="text-center mb-8">
-            <div class="mx-auto w-16 h-16 rounded-lg bg-indigo-600 flex items-center justify-center mb-4">
-                <i class="fas fa-tasks text-white text-2xl"></i>
+            <div
+                class="mx-auto w-16 h-16 rounded-lg border border-blue-200 flex items-center justify-center mb-4 overflow-hidden">
+                @if($setting && $setting->app_logo)
+                <img src="{{ asset('storage/' . $setting->app_logo) }}" alt="{{ $setting->app_name }}"
+                    class="w-full h-full object-contain">
+                @else
+                <img src="{{ asset('images/default-logo.png') }}" alt="Default Logo"
+                    class="w-full h-full object-contain">
+                @endif
             </div>
-            <h1 class="text-3xl font-bold text-gray-800">{{ $setting->app_name }} Pro</h1>
+
+            <h1 class="text-3xl font-bold text-gray-800">{{ $setting->app_name }}</h1>
             <p class="text-gray-600 mt-2">Inter-Office Task Management System</p>
         </div>
 
@@ -133,7 +147,7 @@
 
         <!-- Copyright Notice -->
         <div class="mt-8 text-center text-xs text-gray-500">
-            &copy; {{ date('Y') }} {{ $setting->app_name }} Pro. All rights reserved.
+            &copy; {{ date('Y') }} {{ $setting->app_name }} . All rights reserved.
         </div>
     </div>
 
