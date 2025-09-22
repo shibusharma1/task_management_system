@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AuditLogController;
@@ -17,10 +18,10 @@ use App\Http\Controllers\InstitutionsController;
 use App\Http\Controllers\TaskCategoryController;
 use App\Http\Controllers\EmployeeDetailController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
+// Route::get('/', function () {
+//     return view('home');
+// })->name('home');
+Route::get('/',[HomeController::class,'index'])->name('home.index');
 
 
 // Auths
@@ -43,6 +44,15 @@ Route::get('/clear-all', function () {
         return 'Cleared in local environment!';
     }
     abort(403);
+});
+
+Route::get('/storage-link',function(){
+     if(app()->environment('local')){
+        Artisan::call('storage:link');
+        return 'cleared in local environment';
+     }
+     abort(403);
+
 });
 
 // Group for Admin only (role:0)
