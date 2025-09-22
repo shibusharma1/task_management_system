@@ -254,11 +254,11 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div class="p-6 rounded-lg hover:bg-gray-50 transition duration-300">
-                    <p class="text-3xl md:text-4xl font-bold text-primary-600">50K+</p>
+                    <p class="text-3xl md:text-4xl font-bold text-primary-600">K+</p>
                     <p class="text-gray-600 mt-2">Active Users</p>
                 </div>
                 <div class="p-6 rounded-lg hover:bg-gray-50 transition duration-300">
-                    <p class="text-3xl md:text-4xl font-bold text-primary-600">1M+</p>
+                    <p class="text-3xl md:text-4xl font-bold text-primary-600">M+</p>
                     <p class="text-gray-600 mt-2">Tasks Completed</p>
                 </div>
                 <div class="p-6 rounded-lg hover:bg-gray-50 transition duration-300">
@@ -525,7 +525,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <footer class="bg-gray-900 text-gray-400 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
@@ -536,52 +536,78 @@
                         </div>
                         <h2 class="text-white text-xl font-bold">{{ $setting->app_name }}</h2>
                     </div>
-                    <p class="mb-4">The modern task management platform for teams who want to achieve more.</p>
+                    <p class="mb-6">The modern task management platform for teams who want to achieve more.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
-                                class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
-                                class="fab fa-instagram"></i></a>
+                        <!-- Twitter (X) -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition duration-300">
+                            <span class="text-lg font-bold">𝕏</span>
+                        </a>
+                    
+                        <!-- Facebook -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    
+                        <!-- LinkedIn -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    
+                        <!-- Instagram -->
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
+                    
                 </div>
 
                 <div>
-                    <h3 class="text-white font-semibold mb-4">Product</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#features" class="hover:text-white transition duration-300">Features</a></li>
-                        <li><a href="#pricing" class="hover:text-white transition duration-300">Pricing</a></li>
-                        <li><a href="#services" class="hover:text-white transition duration-300">Services</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300">Integrations</a></li>
+                    <h3 class="text-white font-semibold mb-6 text-lg">Product</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#features" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Features</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Pricing</a></li>
+                        <li><a href="#services" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Services</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Integrations</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-white font-semibold mb-4">Resources</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300">Webinars</a></li>
-                        <li><a href="#faq" class="hover:text-white transition duration-300">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300">Support</a></li>
+                    <h3 class="text-white font-semibold mb-6 text-lg">Resources</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Webinars</a></li>
+                        <li><a href="#faq" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Support</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-white font-semibold mb-4">Company</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#about" class="hover:text-white transition duration-300">About Us</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300">Careers</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300">Contact</a></li>
-                        <li><a href="#" class="hover:text-white transition duration-300">Privacy Policy</a></li>
+                    <h3 class="text-white font-semibold mb-6 text-lg">Company</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#about" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300 flex items-center">
+                            <i class="fas fa-chevron-right text-xs text-primary-600 mr-2"></i>Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-                <p>&copy; {{ date('Y') }} Passion Chasers. All rights reserved.</p>
+            <!-- Copyright -->
+            <div class="mt-8 pt-8 border-t border-gray-800 text-sm text-center">
+                <p>&copy; {{ date('Y') }} {{ $setting->app_name }}. All rights reserved.</p>
+                <p class="mt-2">Designed & Developed by Passion Chasers.</p>
             </div>
         </div>
     </footer>
