@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $query = User::with('designation','department');
+        $query = User::with('designation', 'department');
 
         if ($search) {
             $query->where('name', 'like', "%{$search}%")
@@ -30,7 +30,7 @@ class UserController extends Controller
         $designations = Designation::orderBy('hierarchy_level')->get();
         $departments = Department::orderBy('id')->get();
 
-        return view('admin.users.index', compact('users', 'designations','departments', 'search'));
+        return view('admin.users.index', compact('users', 'designations', 'departments', 'search'));
     }
 
     public function store(Request $request)

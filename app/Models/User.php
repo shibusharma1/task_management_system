@@ -45,7 +45,7 @@ class User extends Authenticatable
         ];
     }
 
-    protected $fillable = ['institution_id', 'name', 'email', 'password', 'designation_id'];
+    protected $fillable = ['institution_id', 'name', 'email', 'password', 'designation_id', 'department_id'];
 
     public function designation()
     {

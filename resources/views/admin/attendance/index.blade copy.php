@@ -178,7 +178,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="mt-4 flex items-center justify-between">
+                    <div class="mt-4 flex items-center justify-between">
                         <div class="flex-1 flex justify-between sm:hidden">
                             <a href="#"
                                 class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
@@ -237,9 +237,6 @@
                                 </nav>
                             </div>
                         </div>
-                    </div> --}}
-                    <div class="px-4 py-4 bg-gray-50">
-                        {{-- {{ $attendance->links() }} --}}
                     </div>
                 </div>
             </div>

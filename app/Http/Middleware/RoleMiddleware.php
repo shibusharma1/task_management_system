@@ -5,27 +5,44 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next,...$roles): Response
+    public function handle(Request $request, Closure $next, $roles)
     {
-        // return $next($request);
-         if (!Auth::check()) {
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        if (in_array(Auth::user()->designation->hierarchy_level, $roles)) {
-            return $next($request);
+        $user = Auth::user();
+        $userRole = $user->designation->hierarchy_level ?? null;
+
+        $allowedRoles = explode(',', $roles);
+
+        if (!in_array($userRole, $allowedRoles)) {
+            abort(403, 'Unauthorized access.');
         }
 
-        abort(403, 'Unauthorized access.');
-    
+        return $next($request);
     }
+// class RoleMiddleware
+// {
+//     public function handle(Request $request, Closure $next, $roles)
+//     {
+//         if (!Auth::check()) {
+//             return redirect()->route('login');
+//         }
+
+//         $user = Auth::user();
+//         $userRole = $user->designation->hierarchy_level ?? null;
+
+//         // Convert roles to integers to avoid type mismatch
+//         $allowedRoles = array_map('intval', explode(',', $roles));
+
+//         if (!in_array($userRole, $allowedRoles, true)) {
+//             abort(403, 'Unauthorized access.');
+//         }
+
+//         return $next($request);
+//     }
 }
