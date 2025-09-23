@@ -103,15 +103,34 @@
 
         /* Features Section Styles */
         .features-card {
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            background: linear-gradient(to bottom right, #ffffff, #f9fafb);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(79,70,229,0.08) 0%, transparent 70%);
+            transform: rotate(25deg);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .features-card:hover::before {
+            opacity: 1;
         }
 
         .features-card:hover {
-            border-left-color: #4F46E5;
-            transform: translateX(8px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15);
         }
 
         /* Testimonials Section Styles */
@@ -123,8 +142,8 @@
         }
 
         .testimonial-card::before {
-            content: """;
- position: absolute;
+            content: "";
+            position: absolute;
             top: -20px;
             left: 10px;
             font-size: 120px;
