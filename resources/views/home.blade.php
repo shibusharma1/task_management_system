@@ -485,7 +485,7 @@
                             class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center font-bold text-primary-700 mr-4 testimonial-avatar">
                             CS</div>
                         <div>
-                            <h4 class="font-bold">Charu SHrestha</h4>
+                            <h4 class="font-bold">Charu Shrestha</h4>
                             <p class="text-gray-500 text-sm">Marketing Director</p>
                         </div>
                     </div>

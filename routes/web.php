@@ -21,11 +21,7 @@ use App\Http\Controllers\EmployeeDetailController;
 // Route::get('/', function () {
 //     return view('home');
 // })->name('home');
-<<<<<<< Updated upstream
-Route::get('/',[HomeController::class,'index'])->name('home');
-=======
 Route::get('/', [HomeController::class, 'index'])->name('home');
->>>>>>> Stashed changes
 
 
 // Auths
