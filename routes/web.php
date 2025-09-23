@@ -21,8 +21,12 @@ use App\Http\Controllers\EmployeeDetailController;
 // Route::get('/', function () {
 //     return view('home');
 // })->name('home');
+<<<<<<< Updated upstream
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+=======
+Route::get('/',[HomeController::class,'index'])->name('home');
+>>>>>>> Stashed changes
 
 // Auths
 Route::get('register', [AuthController::class, 'register'])->name('register');
@@ -90,15 +94,15 @@ Route::prefix('admin')->middleware(['auth', 'role:0'])->group(function () {
     // ====================
     // Tasks Routes
     // ====================    
-    Route::get('/tasks', [TasksController::class, 'index'])->name('tasks.index');
-    Route::get('/my-tasks', [TasksController::class, 'myTask'])->name('task.mytask');
-    Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks.create');
-    Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
-    Route::get('/tasks/{task}', [TasksController::class, 'show'])->name('tasks.show');
-    Route::get('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
-    Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks.update');
-    Route::delete('/tasks/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');
-    Route::get('users/search', [TasksController::class, 'searchUsers'])->name('users.search');
+    // Route::get('/tasks', [TasksController::class, 'index'])->name('tasks.index');
+    // Route::get('/my-tasks', [TasksController::class, 'myTask'])->name('task.mytask');
+    // Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks.create');
+    // Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
+    // Route::get('/tasks/{task}', [TasksController::class, 'show'])->name('tasks.show');
+    // Route::get('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
+    // Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks.update');
+    // Route::delete('/tasks/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');
+    // Route::get('users/search', [TasksController::class, 'searchUsers'])->name('users.search');
 
     // Task Priority
     Route::get('priority', [PriorityController::class, 'index'])->name('task.priority');
@@ -138,15 +142,15 @@ Route::middleware(['auth', 'role:0,1'])->group(function () {
     // ====================
     // Tasks Routes
     // ====================    
-    Route::get('/tasks', [TasksController::class, 'index'])->name('tasks.index');
-    Route::get('/my-tasks', [TasksController::class, 'myTask'])->name('task.mytask');
-    Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks.create');
-    Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
-    Route::get('/tasks/{task}', [TasksController::class, 'show'])->name('tasks.show');
-    Route::get('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
-    Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks.update');
-    Route::delete('/tasks/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');
-    Route::get('users/search', [TasksController::class, 'searchUsers'])->name('users.search');
+    // Route::get('/tasks', [TasksController::class, 'index'])->name('tasks.index');
+    // Route::get('/my-tasks', [TasksController::class, 'myTask'])->name('task.mytask');
+    // Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks.create');
+    // Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
+    // Route::get('/tasks/{task}', [TasksController::class, 'show'])->name('tasks.show');
+    // Route::get('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
+    // Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks.update');
+    // Route::delete('/tasks/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');
+    // Route::get('users/search', [TasksController::class, 'searchUsers'])->name('users.search');
 
 });
 

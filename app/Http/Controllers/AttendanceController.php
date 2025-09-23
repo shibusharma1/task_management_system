@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance; // Make sure this is the correct model name
+use Ramsey\Uuid\Type\Integer;
 
 class AttendanceController extends Controller
 {
@@ -46,7 +47,7 @@ class AttendanceController extends Controller
         $users = User::paginate(10);
         $usercount = User::count();
 
-
+        // dd($attendanceHistory);
 
 
 
@@ -75,8 +76,8 @@ class AttendanceController extends Controller
             $checkOutTime = $checkOut ? Carbon::parse($checkOut->timestamp)->format('h:i A') : '-';
 
             if ($checkIn && $checkOut) {
-                $hours = Carbon::parse($checkOut->timestamp)->diffInHours(Carbon::parse($checkIn->timestamp));
-                $minutes = Carbon::parse($checkOut->timestamp)->diffInMinutes(Carbon::parse($checkIn->timestamp)) % 60;
+                $hours = (int)abs(Carbon::parse($checkOut->timestamp)->diffInHours(Carbon::parse($checkIn->timestamp)));
+                $minutes = abs(Carbon::parse($checkOut->timestamp)->diffInMinutes(Carbon::parse($checkIn->timestamp)) % 60);
                 $worked = "{$hours}h {$minutes}m";
             } elseif ($checkIn && !$checkOut) {
                 $worked = '-';
@@ -115,25 +116,7 @@ class AttendanceController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'type' => 'required|in:in,out',
-    //         'note' => 'nullable|string|max:255'
-    //     ]);
-
-    //     $attendance = Attendance::create([
-    //         'user_id'   => Auth::id(),
-    //         'type'      => $request->type,
-    //         'timestamp' => now(),
-    //         'note'      => $request->note,
-    //     ]);
-
-    //     return redirect()->back()->with('success', 'Attendance recorded successfully');
-    // }
+    
     public function store(Request $request)
     {
         $request->validate([

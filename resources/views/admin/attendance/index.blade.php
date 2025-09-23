@@ -31,28 +31,15 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <!-- Left Column -->
-            <div class="lg:col-span-2 space-y-6">
-                <!-- Current Status -->
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">            
+            <div class="lg:col-span-2 space-y-6">                
                 <div class="bg-white shadow rounded-lg overflow-hidden">
                     <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">Current Status</h3>
                     </div>
                     <div class="p-6">
                         <div class="flex items-center justify-between">
-                            {{-- <div>
-                                <p class="text-sm font-medium text-gray-500">Today's Status</p>
-                                <p id="attendance-status-page" class="text-lg font-semibold text-gray-900">Checked In:
-                                    09:15
-                                    AM</p>
-                            </div>
-                            <div id="attendance-timer-page" class="text-xl font-bold text-indigo-600">07:24:35</div>
-                            <button id="attendance-btn-page"
-                                class="px-4 py-2 text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
-                                <i class="fas fa-sign-in-alt mr-1"></i> Check Out
-                            </button>
-                        </div> --}}
+                            
                         @if($checkedIn && !$checkedOut)
 
                         <div>
@@ -61,9 +48,7 @@
                                 $checkInFormatted }}</p>
                         </div>
                         @elseif($checkedOut && $checkedIn)
-                        {{-- <p id="attendance-status" class="text-lg font-semibold text-gray-900">Checked Out:
-                            {{
-                            $checkOutFormatted }}</p> --}}
+                        
                         <div>
                             <p class="text-sm font-medium text-gray-500">Today's Status</p>
                             <p id="attendance-status-page" class="text-lg font-semibold text-gray-900">Checked Out: {{
@@ -76,10 +61,7 @@
                         @endif
                         <div id="attendance-timer-page" class="text-xl font-bold text-indigo-600"></div>
 
-                        {{-- <button id="attendance-btn-page"
-                            class="px-4 py-2 text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
-                            <i class="fas fa-sign-in-alt mr-1"></i> Check Out
-                        </button> --}}
+                        
                         @if(!$checkedIn)
                         <!-- Show Check In button -->
                         <form action="{{ route('attendance.store') }}" method="POST">
@@ -178,66 +160,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="mt-4 flex items-center justify-between">
-                        <div class="flex-1 flex justify-between sm:hidden">
-                            <a href="#"
-                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Previous
-                            </a>
-                            <a href="#"
-                                class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Next
-                            </a>
-                        </div>
-                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                            <div>
-                                <p class="text-sm text-gray-700">
-                                    Showing
-                                    <span class="font-medium">1</span>
-                                    to
-                                    <span class="font-medium">5</span>
-                                    of
-                                    <span class="font-medium">24</span>
-                                    entries
-                                </p>
-                            </div>
-                            <div>
-                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-                                    aria-label="Pagination">
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Previous</span>
-                                        <i class="fas fa-chevron-left"></i>
-                                    </a>
-                                    <a href="#" aria-current="page"
-                                        class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        1
-                                    </a>
-                                    <a href="#"
-                                        class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        2
-                                    </a>
-                                    <a href="#"
-                                        class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        3
-                                    </a>
-                                    <span
-                                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                                        ...
-                                    </span>
-                                    <a href="#"
-                                        class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        8
-                                    </a>
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Next</span>
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div> --}}
+                    
                     <div class="px-4 py-4 bg-gray-50">
                         {{-- {{ $attendance->links() }} --}}
                     </div>
@@ -262,70 +185,13 @@
                             <p class="text-sm font-medium text-gray-500">Days Absent</p>
                             <p class="text-2xl font-semibold text-gray-900">1</p>
                         </div>
-                        {{-- <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm font-medium text-gray-500">Total Hours</p>
-                            <p class="text-2xl font-semibold text-gray-900">33h</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm font-medium text-gray-500">Avg. Hours/Day</p>
-                            <p class="text-2xl font-semibold text-gray-900">8.25h</p>
-                        </div> --}}
+                        
                     </div>
                     <div class="mt-6">
                         <h4 class="text-sm font-medium text-gray-500 mb-2">This Week</h4>
-                        {{-- <div class="grid grid-cols-7 gap-1 text-center">
-                            <div class="py-1">
-                                <p class="text-xs text-gray-500">Mon</p>
-                                <div
-                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-green-100 flex items-center justify-center">
-                                    <i class="fas fa-check text-green-600 text-xs"></i>
-                                </div>
-                            </div>
-                            <div class="py-1">
-                                <p class="text-xs text-gray-500">Tue</p>
-                                <div
-                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-green-100 flex items-center justify-center">
-                                    <i class="fas fa-check text-green-600 text-xs"></i>
-                                </div>
-                            </div>
-                            <div class="py-1">
-                                <p class="text-xs text-gray-500">Wed</p>
-                                <div
-                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-green-100 flex items-center justify-center">
-                                    <i class="fas fa-check text-green-600 text-xs"></i>
-                                </div>
-                            </div>
-                            <div class="py-1">
-                                <p class="text-xs text-gray-500">Thu</p>
-                                <div
-                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-yellow-100 flex items-center justify-center">
-                                    <i class="fas fa-clock text-yellow-600 text-xs"></i>
-                                </div>
-                            </div>
-                            <div class="py-1">
-                                <p class="text-xs text-gray-500">Fri</p>
-                                <div
-                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
-                                    <i class="fas fa-minus text-gray-500 text-xs"></i>
-                                </div>
-                            </div>
-                            <div class="py-1">
-                                <p class="text-xs text-gray-500">Sat</p>
-                                <div
-                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
-                                    <i class="fas fa-minus text-gray-500 text-xs"></i>
-                                </div>
-                            </div>
-                            <div class="py-1">
-                                <p class="text-xs text-gray-500">Sun</p>
-                                <div
-                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
-                                    <i class="fas fa-minus text-gray-500 text-xs"></i>
-                                </div>
-                            </div>
-                        </div> --}}
+                       
                         @php
-                        // Days of week starting from Sunday
+                        
                         $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
                         // Get today's weekday number (0 = Sunday, 6 = Saturday)
@@ -337,26 +203,26 @@
                             <div class="py-1">
                                 <p class="text-xs text-gray-500">{{ $day }}</p>
 
-                                @if ($index < $todayIndex) {{-- Past days: ✅ --}} <div
+                                @if ($index < $todayIndex)  
+                                <div
                                     class="w-6 h-6 mx-auto mt-1 rounded-full bg-green-100 flex items-center justify-center">
                                     <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
                             @elseif ($index === $todayIndex)
-                            {{-- Today --}}
                             @if ($todayIndex === 6)
-                            {{-- Saturday = ❌ --}}
+                            
                             <div class="w-6 h-6 mx-auto mt-1 rounded-full bg-red-100 flex items-center justify-center">
                                 <i class="fas fa-times text-red-600 text-xs"></i>
                             </div>
                             @else
-                            {{-- Current day (not Saturday) = ⏳ --}}
+                            
                             <div
                                 class="w-6 h-6 mx-auto mt-1 rounded-full bg-yellow-100 flex items-center justify-center">
                                 <i class="fas fa-clock text-yellow-600 text-xs"></i>
                             </div>
                             @endif
                             @else
-                            {{-- Future days: ➖ --}}
+                            
                             <div class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
                                 <i class="fas fa-minus text-gray-500 text-xs"></i>
                             </div>
