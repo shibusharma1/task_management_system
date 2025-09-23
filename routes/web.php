@@ -21,7 +21,9 @@ use App\Http\Controllers\EmployeeDetailController;
 // Route::get('/', function () {
 //     return view('home');
 // })->name('home');
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
 
 // Auths
 Route::get('register', [AuthController::class, 'register'])->name('register');
