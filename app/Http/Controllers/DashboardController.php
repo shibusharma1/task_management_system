@@ -82,5 +82,9 @@ class DashboardController extends Controller
             return view('admin.profile');
         }
 
+        public function notifications(){
+            return view('admin.notifications');
+        }
+
     }
 

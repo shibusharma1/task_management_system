@@ -14,10 +14,13 @@
     </div>
 
     <div class="flex items-center space-x-4 relative">
-        <button class="p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none relative">
+        <!-- Notifications -->
+        <a href="{{ route('notifications') }}" 
+        class="p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none relative">
             <i class="fas fa-bell"></i>
             <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
+        </a>
+
 
         <!-- Quick Actions -->
         <div class="relative">
