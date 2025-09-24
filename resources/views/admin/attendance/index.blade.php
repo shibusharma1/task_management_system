@@ -162,7 +162,7 @@
                     </div>
                     
                     <div class="px-4 py-4 bg-gray-50">
-                        {{-- {{ $attendance->links() }} --}}
+                        {{ $attendanceHistory->links() }}
                     </div>
                 </div>
             </div>

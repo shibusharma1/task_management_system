@@ -22,14 +22,6 @@
     <!-- Alpine.js for dropdown functionality -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    {{-- Highchart scripts --}}
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/treegraph.js"></script>
-
-
-
-
-
     @stack('styles')
 </head>
 
