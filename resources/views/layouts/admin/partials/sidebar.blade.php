@@ -72,12 +72,12 @@
         </a>
 
         <!-- Reminders -->
-        <a href="{{ route('reminder.index')}}"
+        {{-- <a href="{{ route('reminder.index')}}"
           class="sidebar-link flex items-center px-2 py-3 text-sm font-medium
              {{ request()->routeIs('reminder.*') ? 'text-indigo-500 bg-indigo-100' : 'text-gray-600 hover:bg-gray-100' }}">
           <i class="fas fa-bell mr-3 {{ request()->routeIs('reminder.*') ? 'text-indigo-500' : 'text-gray-600' }}"></i>
           Reminders
-        </a>
+        </a> --}}
 
         <!-- Performance -->
         <a href="#"
