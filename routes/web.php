@@ -60,6 +60,7 @@ Route::get('/storage-link', function () {
 Route::prefix('admin')->middleware(['auth', 'role:0'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::get('notifications', [DashboardController::class, 'notifications'])->name('notifications');
     Route::get('designations', [DesignationController::class, 'index'])->name('designations.index');
     Route::post('designations', [DesignationController::class, 'store'])->name('designations.store');
     Route::get('designations/{designation}/edit', [DesignationController::class, 'edit'])->name('designations.edit');
