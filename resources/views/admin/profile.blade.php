@@ -15,7 +15,7 @@
             <!-- Profile Picture Section -->
             <div class="flex flex-col items-center pb-6 border-b border-gray-200">
                 <div class="mr-6">
-                    <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200 bg-gray-100 flex items-center justify-center cursor-pointer" id="profile-picture-wrapper">
+                    <div class="relative ml-4 w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200 bg-gray-100 flex items-center justify-center cursor-pointer" id="profile-picture-wrapper">
                         @if(auth()->user()->profile_picture)
                             <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" class="w-full h-full object-cover" id="profile-picture-preview">
                         @else
@@ -24,7 +24,7 @@
                             </svg>
                             <img src="" class="hidden w-full h-full object-cover" id="profile-picture-preview">
                         @endif
-                        <div class="absolute inset-0 bg-black/50 flex justify-center opacity-0 hover:opacity-100 transition">
+                        <div class="absolute inset-0 bg-black/50 flex justify-center items-center opacity-0 hover:opacity-100 transition">
                             <span class="text-xs text-white">Change Photo</span>
                         </div>
                     </div>
@@ -100,8 +100,8 @@
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
-                            <input type="text" value="{{ auth()->user()->department ? auth()->user()->department->name : 'Not assigned' }}" class="w-full px-3 py-2 border rounded-lg bg-gray-100" disabled>
-                        </div>
+                            <input type="text" value="{{ optional(auth()->user()->department)->name ?? 'Not assigned' }}" class="w-full px-3 py-2 border rounded-lg bg-gray-100" disabled>
+                        </div>             
                     </div>
                 </div>
 
