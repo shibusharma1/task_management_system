@@ -2,12 +2,12 @@
 @section('title', 'Admin Dashboard')
 
 @push('styles')
-    {{-- Additional Internal --}}
+{{-- Additional Internal --}}
 @endpush
 
 @section('contents')
-    <!-- Main content -->
-    {{-- <div class="flex flex-col flex-1 overflow-hidden"> --}}
+<!-- Main content -->
+{{-- <div class="flex flex-col flex-1 overflow-hidden"> --}}
     <!-- Top navigation -->
 
 
@@ -74,7 +74,8 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">In Progress</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">{{ $inProgressTask ?? 0 }}</div>
+                                        <div class="text-2xl font-semibold text-gray-900">{{ $inProgressTask ?? 0 }}
+                                        </div>
                                     </dd>
                                 </dl>
                             </div>
@@ -129,9 +130,14 @@
                                 </div>
                                 <!-- Priority Badge -->
                                 <div class="ml-2 flex-shrink-0">
-                                    {{-- <span class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span> --}}
-                                    {{-- <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span> --}}
-                                    <span class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span>
+                                    {{-- <span
+                                        class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span>
+                                    --}}
+                                    {{-- <span
+                                        class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span>
+                                    --}}
+                                    <span
+                                        class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span>
                                 </div>
                             </div>
                             <div class="mt-2 pl-8">
@@ -160,7 +166,8 @@
                             <h3 class="text-sm font-medium text-blue-800">
                                 <i class="fas fa-spinner mr-1"></i>In Progress
                             </h3>
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full">2</span>
+                            <span
+                                class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full">2</span>
                         </div>
                     </div>
                     <div class="divide-y divide-gray-200 overflow-y-auto flex-1 max-h-72">
@@ -177,10 +184,14 @@
                                 </div>
                                 <!-- Priority Badge -->
                                 <div class="ml-2 flex-shrink-0">
-                                    {{-- <span class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span> --}}
+                                    {{-- <span
+                                        class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span>
+                                    --}}
                                     <span
                                         class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span>
-                                    {{-- <span class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span> --}}
+                                    {{-- <span
+                                        class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span>
+                                    --}}
                                 </div>
                             </div>
                             <div class="mt-2 pl-8">
@@ -209,7 +220,8 @@
                             <h3 class="text-sm font-medium text-green-800">
                                 <i class="fas fa-check-circle mr-1"></i>Completed
                             </h3>
-                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">4</span>
+                            <span
+                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">4</span>
                         </div>
                     </div>
                     <div class="divide-y divide-gray-200 overflow-y-auto flex-1 max-h-72">
@@ -221,7 +233,8 @@
                                         <i class="fas fa-check text-green-600 text-sm"></i>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate line-through">Setup Database
+                                        <p class="text-sm font-medium text-gray-900 truncate line-through">Setup
+                                            Database
                                         </p>
                                         <p class="text-xs text-gray-500 mt-1">Completed: Sep 15, 2025</p>
                                     </div>
@@ -230,8 +243,12 @@
                                 <div class="ml-2 flex-shrink-0">
                                     <span
                                         class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span>
-                                    {{-- <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span> --}}
-                                    {{-- <span class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span> --}}
+                                    {{-- <span
+                                        class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span>
+                                    --}}
+                                    {{-- <span
+                                        class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span>
+                                    --}}
                                 </div>
                             </div>
                             <div class="mt-2 pl-8">
@@ -269,59 +286,58 @@
                         </div>
                         <div class="divide-y divide-gray-200">
                             @forelse($recentTasks as $task)
-                                <div class="px-4 py-4 sm:px-6">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center">
-                                            <span
-                                                class="ml-3 block font-medium {{ $task['status'] == 2 ? 'line-through' : '' }}">
-                                                {{ $task['name'] }}
-                                            </span>
-                                        </div>
-                                        <div class="flex items-center space-x-2">
-                                            @if ($task['status'] == 0)
-                                                <span
-                                                    class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-yellow-100 text-yellow-800">
-                                                    Pending
-                                                </span>
-                                            @elseif($task['status'] == 1)
-                                                <span
-                                                    class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-blue-100 text-blue-800">
-                                                    Progress
-                                                </span>
-                                            @else
-                                                <span
-                                                    class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-green-100 text-green-800">
-                                                    Completed
-                                                </span>
-                                            @endif
+                            <div class="px-4 py-4 sm:px-6">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <span
+                                            class="ml-3 block font-medium {{ $task['status'] == 2 ? 'line-through' : '' }}">
+                                            {{ $task['name'] }}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        @if ($task['status'] == 0)
+                                        <span
+                                            class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-yellow-100 text-yellow-800">
+                                            Pending
+                                        </span>
+                                        @elseif($task['status'] == 1)
+                                        <span
+                                            class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-blue-100 text-blue-800">
+                                            Progress
+                                        </span>
+                                        @else
+                                        <span
+                                            class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded bg-green-100 text-green-800">
+                                            Completed
+                                        </span>
+                                        @endif
 
-                                            @php
-                                                $dueDate = \Carbon\Carbon::parse($task['due_date']);
-                                                $today = \Carbon\Carbon::today();
-                                            @endphp
+                                        @php
+                                        $dueDate = \Carbon\Carbon::parse($task['due_date']);
+                                        $today = \Carbon\Carbon::today();
+                                        @endphp
 
-                                            <span
-                                                class="px-2 py-1 rounded text-xs 
+                                        <span class="px-2 py-1 rounded text-xs 
                                         @if ($dueDate->isPast() && !$dueDate->isSameDay($today)) bg-red-500 text-white 
                                         @elseif($dueDate->isSameDay($today)) bg-yellow-400 text-black 
                                         @else bg-green-500 text-white @endif">
-                                                {{ $dueDate->format('M d, Y') }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 flex items-center text-sm text-gray-500">
-                                        <i class="fas fa-user-tie mr-1 text-gray-400"></i>
-                                        <span class="mr-3">Assigned By: {{ $task->assignee->name ?? 'N/A' }}
-                                            ({{ $task->assignee->designation->designation_name ?? 'N/A' }})
+                                            {{ $dueDate->format('M d, Y') }}
                                         </span>
-                                        <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
-                                        <span>{{ $task->assignee->department->department_name ?? 'N/A' }}</span>
                                     </div>
                                 </div>
-                            @empty
-                                <div class="flex items-center justify-center py-10">
-                                    <p class="text-gray-600 text-lg">No tasks found.</p>
+                                <div class="mt-2 flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-user-tie mr-1 text-gray-400"></i>
+                                    <span class="mr-3">Assigned By: {{ $task->assignee->name ?? 'N/A' }}
+                                        ({{ $task->assignee->designation->designation_name ?? 'N/A' }})
+                                    </span>
+                                    <i class="fas fa-project-diagram mr-1 text-gray-400"></i>
+                                    <span>{{ $task->assignee->department->department_name ?? 'N/A' }}</span>
                                 </div>
+                            </div>
+                            @empty
+                            <div class="flex items-center justify-center py-10">
+                                <p class="text-gray-600 text-lg">No tasks found.</p>
+                            </div>
                             @endforelse
                         </div>
                         <div class="px-4 py-4 sm:px-6 bg-gray-50 text-sm text-right">
@@ -364,17 +380,17 @@
                                 <div>
                                     <p class="text-sm font-medium text-gray-500">Today's Status</p>
                                     @if ($checkedIn && !$checkedOut)
-                                        <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">
-                                            Checked In: {{ $checkInFormatted }}
-                                        </p>
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">
+                                        Checked In: {{ $checkInFormatted }}
+                                    </p>
                                     @elseif($checkedOut && $checkedIn)
-                                        <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">
-                                            Checked Out: {{ $checkOutFormatted }}
-                                        </p>
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">
+                                        Checked Out: {{ $checkOutFormatted }}
+                                    </p>
                                     @else
-                                        <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">
-                                            Checked In: --:-- --
-                                        </p>
+                                    <p id="attendance-status" class="text-[16px] font-semibold text-gray-900">
+                                        Checked In: --:-- --
+                                    </p>
                                     @endif
                                 </div>
                                 <div id="attendance-timer" class="text-xl font-bold text-indigo-600"></div>
@@ -382,50 +398,50 @@
                             <div class="border-t border-gray-200 pt-4">
                                 <h4 class="text-sm font-medium text-gray-500 mb-2">This Week</h4>
                                 @php
-                                    $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                                    $todayIndex = now()->dayOfWeek;
+                                $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                                $todayIndex = now()->dayOfWeek;
                                 @endphp
 
                                 <div class="grid grid-cols-7 gap-1 text-center">
                                     @foreach ($days as $index => $day)
-                                        <div class="py-1">
-                                            <p class="text-xs text-gray-500">{{ $day }}</p>
-                                            @if ($index < $todayIndex)
-                                                <div
-                                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-green-100 flex items-center justify-center">
-                                                    <i class="fas fa-check text-green-600 text-xs"></i>
-                                                </div>
-                                            @elseif ($index === $todayIndex)
-                                                @if ($todayIndex === 6)
-                                                    <div
-                                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-red-100 flex items-center justify-center">
-                                                        <i class="fas fa-times text-red-600 text-xs"></i>
-                                                    </div>
-                                                @else
-                                                    <div
-                                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-yellow-100 flex items-center justify-center">
-                                                        <i class="fas fa-clock text-yellow-600 text-xs"></i>
-                                                    </div>
-                                                @endif
-                                            @else
-                                                <div
-                                                    class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
-                                                    <i class="fas fa-minus text-gray-500 text-xs"></i>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @endforeach
+                                    <div class="py-1">
+                                        <p class="text-xs text-gray-500">{{ $day }}</p>
+                                        @if ($index < $todayIndex) <div
+                                            class="w-6 h-6 mx-auto mt-1 rounded-full bg-green-100 flex items-center justify-center">
+                                            <i class="fas fa-check text-green-600 text-xs"></i>
+                                    </div>
+                                    @elseif ($index === $todayIndex)
+                                    @if ($todayIndex === 6)
+                                    <div
+                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-red-100 flex items-center justify-center">
+                                        <i class="fas fa-times text-red-600 text-xs"></i>
+                                    </div>
+                                    @else
+                                    <div
+                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-yellow-100 flex items-center justify-center">
+                                        <i class="fas fa-clock text-yellow-600 text-xs"></i>
+                                    </div>
+                                    @endif
+                                    @else
+                                    <div
+                                        class="w-6 h-6 mx-auto mt-1 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-minus text-gray-500 text-xs"></i>
+                                    </div>
+                                    @endif
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Reminders Section -->
-                    {{-- <div class="bg-white shadow rounded-lg overflow-hidden">
+                <!-- Reminders Section -->
+                {{-- <div class="bg-white shadow rounded-lg overflow-hidden">
                     <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                         <div class="flex items-center justify-between">
                             <h3 class="text-lg font-medium leading-6 text-gray-900">Reminders</h3>
-                            <button class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
+                            <button
+                                class="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
                                 <i class="fas fa-plus mr-1"></i> Add
                             </button>
                         </div>
@@ -435,56 +451,65 @@
                     </div>
                 </div> --}}
 
-                    <!-- Organization Hierarchy -->
-                    <div class="bg-white shadow rounded-lg overflow-hidden">
-                        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">Organization Hierarchy</h3>
-                        </div>
-                        <div class="p-6 bg-gray-50">
-                            <div class="space-y-4">
-                                @php
-                                    function renderUsers($level, $usersByDesignation)
-                                    {
-                                        if (!isset($usersByDesignation[$level])) {
-                                            return;
-                                        }
-                                        echo '<div class="ml-' .
-                                            $level * 8 .
-                                            ' pl-4 border-l-4 border-gray-300 space-y-2">';
-                                        foreach ($usersByDesignation[$level] as $user) {
-                                            echo '<div class="flex items-center transform hover:scale-105 transition-transform duration-500">';
-                                            echo '<div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">';
-                                            echo $level + 1;
-                                            echo '</div>';
-                                            echo '<div class="ml-3">';
-                                            echo '<p class="text-sm font-medium text-gray-900">' . $user->name . '</p>';
-                                            echo '<p class="text-xs text-gray-500">' .
-                                                $user->designation->designation_name .
-                                                '</p>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                            renderUsers($level + 1, $usersByDesignation);
-                                        }
+                <!-- Organization Hierarchy -->
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">Organization Hierarchy</h3>
+                    </div>
+                    <div class="p-6 bg-gray-50">
+                        <div class="space-y-4">
+                            @php
+                            function renderUsers($level, $usersByDesignation)
+                            {
+                            if (!isset($usersByDesignation[$level])) {
+                            return;
+                            }
+
+                            echo '<div class="ml-' . ($level * 8) . ' pl-4 border-l-4 border-gray-300 space-y-2">';
+
+                                // Show all users of this hierarchy level
+                                foreach ($usersByDesignation[$level] as $user) {
+                                echo '<div
+                                    class="flex items-center transform hover:scale-105 transition-transform duration-500">
+                                    ';
+                                    echo '<div
+                                        class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
+                                        ';
+                                        echo $level + 1;
                                         echo '</div>';
-                                    }
-                                @endphp
-                                @php renderUsers(0, $usersByDesignation); @endphp
-                            </div>
+                                    echo '<div class="ml-3">';
+                                        echo '<p class="text-sm font-medium text-gray-900">' . $user->name . '</p>';
+                                        echo '<p class="text-xs text-gray-500">' . $user->designation->designation_name
+                                            . '</p>';
+                                        echo '</div>';
+                                    echo '</div>';
+                                }
+
+                                // After listing all users of this level, go to the next hierarchy level once
+                                renderUsers($level + 1, $usersByDesignation);
+
+                                echo '</div>';
+                            }
+                            @endphp
+
+                            @php renderUsers(0, $usersByDesignation); @endphp
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-
-        <div class="bg-gray-200 text-left p-4 w-full">
-            <p class="text-sm text-gray-600">&copy; {{ date('Y') }} Passion Chasers. All rights reserved.</p>
-        </div>
     </div>
+
+    <div class="bg-gray-200 text-left p-4 w-full">
+        <p class="text-sm text-gray-600">&copy; {{ date('Y') }} Passion Chasers. All rights reserved.</p>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
             let checkInRaw = @json($checkInRaw); // e.g. "2025-08-13 15:11:00"
             let checkOutRaw = @json($checkOutRaw); // e.g. "2025-08-13 17:45:00"
             let timerEl = document.getElementById("attendance-timer");
@@ -523,5 +548,5 @@
                 String(mins).padStart(2, '0') + ":" +
                 String(secs).padStart(2, '0');
         }
-    </script>
+</script>
 @endpush

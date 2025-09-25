@@ -56,11 +56,18 @@ class DashboardController extends Controller
         // Fetch all designations ordered by hierarchy_level
         $designations = Designation::orderBy('hierarchy_level')->get();
 
-        // Group users by designation
-        $usersByDesignation = User::with('designation')->get()->groupBy(function ($user) {
-            return $user->designation->hierarchy_level;
-        });
-
+        // // Group users by designation
+        // $usersByDesignation = User::with('designation')->where('hierarchy_level',0 || 1)->get()->groupBy(function ($user) {
+        //     return $user->designation->hierarchy_level;
+        // });
+        $usersByDesignation = User::with('designation')
+            ->whereHas('designation', function ($q) {
+                $q->whereIn('hierarchy_level', [0, 1, 2]);
+            })
+            ->get()
+            ->groupBy(function ($user) {
+                return $user->designation->hierarchy_level;
+            });
 
 
         return view('admin.dashboard', compact(
@@ -78,13 +85,15 @@ class DashboardController extends Controller
         ));
     }
 
-        public function profile(){
-            return view('admin.profile');
-        }
-
-        public function notifications(){
-            return view('admin.notifications');
-        }
-
+    public function profile()
+    {
+        return view('admin.profile');
     }
+
+    public function notifications()
+    {
+        return view('admin.notifications');
+    }
+
+}
 

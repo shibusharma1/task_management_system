@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance; // Make sure this is the correct model name
 use Ramsey\Uuid\Type\Integer;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class AttendanceController extends Controller
 {
@@ -57,9 +59,74 @@ class AttendanceController extends Controller
     }
 
     // Private class to make the code modular and easy to understand
+
+    // private function attendanceHistory($userId)
+    // {
+    //     $startDate = Carbon::now()->startOfMonth();
+    //     $endDate = Carbon::now()->endOfMonth();
+
+    //     // Fetch all attendances for user
+    //     $attendances = Attendance::where('user_id', $userId)
+    //         ->whereBetween('timestamp', [$startDate, $endDate])
+    //         ->orderBy('timestamp', 'desc')
+    //         ->get()
+    //         ->groupBy(function ($item) {
+    //             return $item->timestamp->toDateString();
+    //         });
+
+    //     $history = [];
+
+    //     // Loop through each day of the month
+    //     for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+    //         $records = $attendances->get($date->toDateString(), collect());
+
+    //         $checkIn = $records->firstWhere('type', 'in');
+    //         $checkOut = $records->firstWhere('type', 'out');
+
+    //         $checkInTime = $checkIn ? Carbon::parse($checkIn->timestamp)->format('h:i A') : '-';
+    //         $checkOutTime = $checkOut ? Carbon::parse($checkOut->timestamp)->format('h:i A') : '-';
+
+    //         if ($checkIn && $checkOut) {
+    //             $hours = (int) abs(Carbon::parse($checkOut->timestamp)->diffInHours(Carbon::parse($checkIn->timestamp)));
+    //             $minutes = abs(Carbon::parse($checkOut->timestamp)->diffInMinutes(Carbon::parse($checkIn->timestamp)) % 60);
+    //             $worked = "{$hours}h {$minutes}m";
+    //         } elseif ($checkIn && !$checkOut) {
+    //             $worked = '-';
+    //         } else {
+    //             $worked = '-';
+    //         }
+
+    //         if ($checkIn && $checkOut) {
+    //             $status = 'Present';
+    //             $statusColor = 'green';
+    //         } elseif ($checkIn && !$checkOut) {
+    //             $status = 'Half Day';
+    //             $statusColor = 'yellow';
+    //         } else {
+    //             $status = 'Absent';
+    //             $statusColor = 'red';
+    //         }
+
+    //         $history[] = [
+    //             'date' => $date->format('M d, Y'),
+    //             'check_in' => $checkInTime,
+    //             'check_out' => $checkOutTime,
+    //             'hours_worked' => $worked,
+    //             'status' => $status,
+    //             'status_color' => $statusColor
+    //         ];
+    //     }
+
+    //     return $history;
+    // }
     private function attendanceHistory($userId)
     {
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now(); // ✅ only up to today (not future dates)
+
+        // Fetch all attendances for user
         $attendances = Attendance::where('user_id', $userId)
+            ->whereBetween('timestamp', [$startDate, $endDate])
             ->orderBy('timestamp', 'desc')
             ->get()
             ->groupBy(function ($item) {
@@ -68,7 +135,10 @@ class AttendanceController extends Controller
 
         $history = [];
 
-        foreach ($attendances as $date => $records) {
+        // Loop through each day in the range
+        for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+            $records = $attendances->get($date->toDateString(), collect());
+
             $checkIn = $records->firstWhere('type', 'in');
             $checkOut = $records->firstWhere('type', 'out');
 
@@ -76,7 +146,7 @@ class AttendanceController extends Controller
             $checkOutTime = $checkOut ? Carbon::parse($checkOut->timestamp)->format('h:i A') : '-';
 
             if ($checkIn && $checkOut) {
-                $hours = (int)abs(Carbon::parse($checkOut->timestamp)->diffInHours(Carbon::parse($checkIn->timestamp)));
+                $hours = (int) abs(Carbon::parse($checkOut->timestamp)->diffInHours(Carbon::parse($checkIn->timestamp)));
                 $minutes = abs(Carbon::parse($checkOut->timestamp)->diffInMinutes(Carbon::parse($checkIn->timestamp)) % 60);
                 $worked = "{$hours}h {$minutes}m";
             } elseif ($checkIn && !$checkOut) {
@@ -97,7 +167,7 @@ class AttendanceController extends Controller
             }
 
             $history[] = [
-                'date' => Carbon::parse($date)->format('M d, Y'),
+                'date' => $date->format('M d, Y'),
                 'check_in' => $checkInTime,
                 'check_out' => $checkOutTime,
                 'hours_worked' => $worked,
@@ -106,7 +176,22 @@ class AttendanceController extends Controller
             ];
         }
 
-        return $history;
+        // Reverse order (latest first)
+        $history = array_reverse($history);
+
+        // Paginate manually (14 per page)
+        $perPage = 6;
+        $page = request()->get('page', 1); // current page from query string
+        $items = array_slice($history, ($page - 1) * $perPage, $perPage);
+        $paginator = new LengthAwarePaginator(
+            $items,
+            count($history),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return $paginator;
     }
     /**
      * Show the form for creating a new resource.
@@ -116,7 +201,7 @@ class AttendanceController extends Controller
         //
     }
 
-    
+
     public function store(Request $request)
     {
         $request->validate([
