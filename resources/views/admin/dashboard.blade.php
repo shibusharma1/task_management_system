@@ -2,7 +2,7 @@
 @section('title', 'Admin Dashboard')
 
 @push('styles')
-{{-- Additional Internal --}}
+
 @endpush
 
 @section('contents')
