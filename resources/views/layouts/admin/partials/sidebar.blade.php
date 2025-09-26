@@ -36,7 +36,7 @@
             <i :class="open ? 'fas fa-chevron-up' : 'fas fa-chevron-down'" class="text-xs"></i>
           </button>
 
-          <div x-show="open" x-collapse class="ml-6 mt-2 space-y-1">
+          <div x-show="open" class="ml-6 mt-2 space-y-1">
             @if(auth()->user()->designation->hierarchy_level == 0)
             <a href="{{ route('task.index') }}"
               class="flex items-center px-2 py-2 text-sm rounded-md
@@ -101,7 +101,7 @@
             <i :class="open ? 'fas fa-chevron-up' : 'fas fa-chevron-down'" class="text-xs"></i>
           </button>
 
-          <div x-show="open" x-collapse class="ml-6 mt-2 space-y-1">
+          <div x-show="open" class="ml-6 mt-2 space-y-1">
             <a href="{{ route('settings.general') }}"
               class="flex items-center px-2 py-2 text-sm rounded-md
                 {{ request()->routeIs('settings.general') ? 'text-indigo-700 bg-indigo-100 font-medium' : 'text-gray-600 hover:bg-gray-100' }}">
