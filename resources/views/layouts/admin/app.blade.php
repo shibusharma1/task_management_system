@@ -12,9 +12,9 @@
     @if($setting && $setting->favicon)
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('storage/' . $setting->favicon) }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $setting->favicon) }}">
-@else
+    @else
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/passionchasers.png') }}">
-@endif
+    @endif
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -23,6 +23,20 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @stack('styles')
+    <style>
+        /* Nilima didi i have written this manually for to hide the side bar of the the dashboard cards so if there is any better option please do that */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+
 </head>
 
 <body class="bg-gray-50 font-sans">

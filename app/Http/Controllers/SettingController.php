@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File; // Added for file copy
 
 class SettingController extends Controller
 {
-     /**
+    /**
      * Display the settings form.
      */
     public function index()
     {
-        // Always fetch the first (and only) setting row
         $setting = Setting::first();
         return view('admin.settings.index', compact('setting'));
     }
@@ -22,7 +22,6 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validated = $request->validate([
             'app_name' => 'nullable|string|max:255',
             'app_logo' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048',
@@ -59,10 +58,29 @@ class SettingController extends Controller
 
         // Handle logo uploads
         if ($request->hasFile('app_logo')) {
-            $validated['app_logo'] = $request->file('app_logo')->store('settings', 'public');
+            $path = $request->file('app_logo')->store('settings', 'public');
+            $validated['app_logo'] = $path;
+
+            // Option 3: Copy to public/storage for servers without symlink
+            $source = storage_path('app/public/' . $path);
+            $destination = public_path('storage/' . $path);
+            if (!File::exists(dirname($destination))) {
+                File::makeDirectory(dirname($destination), 0755, true);
+            }
+            File::copy($source, $destination);
         }
+
         if ($request->hasFile('favicon')) {
-            $validated['favicon'] = $request->file('favicon')->store('settings', 'public');
+            $path = $request->file('favicon')->store('settings', 'public');
+            $validated['favicon'] = $path;
+
+            // Copy to public/storage
+            $source = storage_path('app/public/' . $path);
+            $destination = public_path('storage/' . $path);
+            if (!File::exists(dirname($destination))) {
+                File::makeDirectory(dirname($destination), 0755, true);
+            }
+            File::copy($source, $destination);
         }
 
         Setting::create($validated);
@@ -110,10 +128,29 @@ class SettingController extends Controller
         ]);
 
         if ($request->hasFile('app_logo')) {
-            $validated['app_logo'] = $request->file('app_logo')->store('settings', 'public');
+            $path = $request->file('app_logo')->store('settings', 'public');
+            $validated['app_logo'] = $path;
+
+            // Copy to public/storage
+            $source = storage_path('app/public/' . $path);
+            $destination = public_path('storage/' . $path);
+            if (!File::exists(dirname($destination))) {
+                File::makeDirectory(dirname($destination), 0755, true);
+            }
+            File::copy($source, $destination);
         }
+
         if ($request->hasFile('favicon')) {
-            $validated['favicon'] = $request->file('favicon')->store('settings', 'public');
+            $path = $request->file('favicon')->store('settings', 'public');
+            $validated['favicon'] = $path;
+
+            // Copy to public/storage
+            $source = storage_path('app/public/' . $path);
+            $destination = public_path('storage/' . $path);
+            if (!File::exists(dirname($destination))) {
+                File::makeDirectory(dirname($destination), 0755, true);
+            }
+            File::copy($source, $destination);
         }
 
         $setting->update($validated);

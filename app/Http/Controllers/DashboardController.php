@@ -43,15 +43,17 @@ class DashboardController extends Controller
 
         if (auth()->user()->designation->hierarchy_level == 0) {
             $pendingTask = Task::where('status', 0)->count();
+            $inProgressTask  = Task::where('status', 1)->count();
             $completedTask = Task::where('status', 2)->count();
             // Recent 5 tasks
-            $recentTasks = Task::with('assignee')->latest()->take(5)->get();
+            $recentTasks = Task::with('assignee')->latest()->get();
 
         } else {
             $pendingTask = Task::where('assigned_to', auth()->user()->id)->where('status', 0)->count();
+            $inProgressTask  = Task::where('assigned_to', auth()->user()->id)->where('status', 1)->count();
             $completedTask = Task::where('assigned_to', auth()->user()->id)->where('status', 2)->count();
             // Recent 5 tasks
-            $recentTasks = Task::with('assignee')->where('assigned_to', auth()->user()->id)->latest()->take(5)->get();
+            $recentTasks = Task::with('assignee')->where('assigned_to', auth()->user()->id)->latest()->get();
         }
         // Fetch all designations ordered by hierarchy_level
         $designations = Designation::orderBy('hierarchy_level')->get();
@@ -81,6 +83,7 @@ class DashboardController extends Controller
             'designations',
             'usersByDesignation',
             'pendingTask',
+            'inProgressTask',
             'completedTask'
         ));
     }

@@ -105,6 +105,7 @@
 
             <!-- Task Status Overview -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
                 <!-- Pending Tasks Card -->
                 <div class="bg-white shadow rounded-lg overflow-hidden flex flex-col h-full">
                     <div class="px-4 py-4 border-b border-gray-200 bg-yellow-50">
@@ -112,11 +113,13 @@
                             <h3 class="text-sm font-medium text-yellow-800">
                                 <i class="fas fa-clock mr-1"></i>Pending Tasks
                             </h3>
-                            <span
-                                class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full">
+                                {{ $pendingTask }}
+                            </span>
                         </div>
                     </div>
-                    <div class="divide-y divide-gray-200 overflow-y-auto flex-1 max-h-72">
+                    <div class="divide-y divide-gray-200 overflow-y-auto scrollbar-hide flex-1 max-h-72">
+                        @foreach($recentTasks->where('status', 0) as $task)
                         <div class="px-4 py-4 hover:bg-yellow-50 transition-colors duration-200">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center flex-1 min-w-0">
@@ -124,36 +127,41 @@
                                         <i class="fas fa-hourglass-half text-yellow-600 text-sm"></i>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate">Design Homepage</p>
-                                        <p class="text-xs text-gray-500 mt-1">Due: Sep 28, 2025</p>
+                                        <p class="text-sm font-medium text-gray-900 truncate">{{ $task->name }}</p>
+                                        <p class="text-xs text-gray-500 mt-1">Due: {{
+                                            optional($task->due_date)->format('M d, Y') }}</p>
                                     </div>
                                 </div>
-                                <!-- Priority Badge -->
                                 <div class="ml-2 flex-shrink-0">
-                                    {{-- <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span>
-                                    --}}
-                                    {{-- <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span>
-                                    --}}
-                                    <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span>
+                                    @php
+                                    $priorityColors = ['bg-red-100 text-red-800'=>'High','bg-yellow-100
+                                    text-yellow-800'=>'Medium','bg-green-100 text-green-800'=>'Low'];
+                                    $priorityName = optional($task->priority)->name ?? 'Low';
+                                    $colorClass = array_search($priorityName, $priorityColors) ?: 'bg-green-100
+                                    text-green-800';
+                                    @endphp
+                                    <span class="px-2 py-0.5 text-xs font-medium {{ $colorClass }} rounded-full">{{
+                                        $priorityName }}</span>
                                 </div>
                             </div>
                             <div class="mt-2 pl-8">
                                 <div class="flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user-tie mr-1"></i>
-                                    <span class="truncate">Assigned by: Admin</span>
+                                    <span class="truncate">Assigned by: {{ optional($task->assignedBy)->name ?? 'N/A'
+                                        }}</span>
                                 </div>
                                 <div class="mt-1 flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user mr-1"></i>
-                                    <span class="truncate">Assigned to: Shikshya Nepal</span>
+                                    <span class="truncate">Assigned to: {{ optional($task->assignedTo)->name ?? 'N/A'
+                                        }}</span>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-center border-t border-gray-200 mt-auto">
-                        <a href="#" class="text-sm font-medium text-yellow-600 hover:text-yellow-500">
+                        <a href="{{ route('task.index', ['status'=>0]) }}"
+                            class="text-sm font-medium text-yellow-600 hover:text-yellow-500">
                             View all pending tasks
                         </a>
                     </div>
@@ -166,11 +174,12 @@
                             <h3 class="text-sm font-medium text-blue-800">
                                 <i class="fas fa-spinner mr-1"></i>In Progress
                             </h3>
-                            <span
-                                class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full">2</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full">{{
+                                $inProgressTask }}</span>
                         </div>
                     </div>
-                    <div class="divide-y divide-gray-200 overflow-y-auto flex-1 max-h-72">
+                    <div class="divide-y divide-gray-200 overflow-y-auto scrollbar-hide flex-1 max-h-72">
+                        @foreach($recentTasks->where('status', 1) as $task)
                         <div class="px-4 py-4 hover:bg-blue-50 transition-colors duration-200">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center flex-1 min-w-0">
@@ -178,36 +187,39 @@
                                         <i class="fas fa-play-circle text-blue-600 text-sm"></i>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate">API Integration</p>
-                                        <p class="text-xs text-gray-500 mt-1">Started: Sep 20, 2025</p>
+                                        <p class="text-sm font-medium text-gray-900 truncate">{{ $task->name }}</p>
+                                        <p class="text-xs text-gray-500 mt-1">Started: {{
+                                            optional($task->created_at)->format('M d, Y') }}</p>
                                     </div>
                                 </div>
-                                <!-- Priority Badge -->
                                 <div class="ml-2 flex-shrink-0">
-                                    {{-- <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span>
-                                    --}}
-                                    <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span>
-                                    {{-- <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span>
-                                    --}}
+                                    @php
+                                    $priorityName = optional($task->priority)->name ?? 'Medium';
+                                    $colorClass = array_search($priorityName, $priorityColors) ?: 'bg-yellow-100
+                                    text-yellow-800';
+                                    @endphp
+                                    <span class="px-2 py-0.5 text-xs font-medium {{ $colorClass }} rounded-full">{{
+                                        $priorityName }}</span>
                                 </div>
                             </div>
                             <div class="mt-2 pl-8">
                                 <div class="flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user-tie mr-1"></i>
-                                    <span class="truncate">Assigned by: Manager</span>
+                                    <span class="truncate">Assigned by: {{ optional($task->assignedBy)->name ?? 'N/A'
+                                        }}</span>
                                 </div>
                                 <div class="mt-1 flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user mr-1"></i>
-                                    <span class="truncate">Assigned to: Shibu Sharma</span>
+                                    <span class="truncate">Assigned to: {{ optional($task->assignedTo)->name ?? 'N/A'
+                                        }}</span>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-center border-t border-gray-200 mt-auto">
-                        <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-500">
+                        <a href="{{ route('task.index', ['status'=>1]) }}"
+                            class="text-sm font-medium text-blue-600 hover:text-blue-500">
                             View all in-progress tasks
                         </a>
                     </div>
@@ -220,12 +232,12 @@
                             <h3 class="text-sm font-medium text-green-800">
                                 <i class="fas fa-check-circle mr-1"></i>Completed
                             </h3>
-                            <span
-                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">4</span>
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">{{
+                                $completedTask }}</span>
                         </div>
                     </div>
-                    <div class="divide-y divide-gray-200 overflow-y-auto flex-1 max-h-72">
-                        <!-- Example Task -->
+                    <div class="divide-y divide-gray-200 overflow-y-auto scrollbar-hide flex-1 max-h-72">
+                        @foreach($recentTasks->where('status', 2) as $task)
                         <div class="px-4 py-4 hover:bg-green-50 transition-colors duration-200">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center flex-1 min-w-0">
@@ -233,45 +245,46 @@
                                         <i class="fas fa-check text-green-600 text-sm"></i>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate line-through">Setup
-                                            Database
-                                        </p>
-                                        <p class="text-xs text-gray-500 mt-1">Completed: Sep 15, 2025</p>
+                                        <p class="text-sm font-medium text-gray-900 truncate line-through">{{
+                                            $task->name }}</p>
+                                        <p class="text-xs text-gray-500 mt-1">Completed: {{
+                                            optional($task->updated_at)->format('M d, Y') }}</p>
                                     </div>
                                 </div>
-                                <!-- Priority Badge -->
                                 <div class="ml-2 flex-shrink-0">
-                                    <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">High</span>
-                                    {{-- <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Medium</span>
-                                    --}}
-                                    {{-- <span
-                                        class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded-full">Low</span>
-                                    --}}
+                                    @php
+                                    $priorityName = optional($task->priority)->name ?? 'High';
+                                    $colorClass = array_search($priorityName, $priorityColors) ?: 'bg-red-100
+                                    text-red-800';
+                                    @endphp
+                                    <span class="px-2 py-0.5 text-xs font-medium {{ $colorClass }} rounded-full">{{
+                                        $priorityName }}</span>
                                 </div>
                             </div>
                             <div class="mt-2 pl-8">
                                 <div class="flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user-tie mr-1"></i>
-                                    <span class="truncate">Assigned by: Lead</span>
+                                    <span class="truncate">Assigned by: {{ optional($task->assignedBy)->name ?? 'N/A'
+                                        }}</span>
                                 </div>
                                 <div class="mt-1 flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user mr-1"></i>
-                                    <span class="truncate">Assigned to: Nilima Sardar</span>
+                                    <span class="truncate">Assigned to: {{ optional($task->assignedTo)->name ?? 'N/A'
+                                        }}</span>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-center border-t border-gray-200 mt-auto">
-                        <a href="#" class="text-sm font-medium text-green-600 hover:text-green-500">
+                        <a href="{{ route('task.index', ['status'=>2]) }}"
+                            class="text-sm font-medium text-green-600 hover:text-green-500">
                             View all completed tasks
                         </a>
                     </div>
                 </div>
 
             </div>
-
 
             <!-- Main Dashboard Content -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -285,7 +298,7 @@
                             </div>
                         </div>
                         <div class="divide-y divide-gray-200">
-                            @forelse($recentTasks as $task)
+                            @forelse($recentTasks->take(5) as $task)
                             <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
