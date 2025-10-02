@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
 use App\Models\Priority;
 use App\Models\TaskCategory;
-use App\Models\User;
+use Illuminate\Http\Request;
+use App\Services\NotificationService;
 use Illuminate\Validation\ValidationException;
 
 class TasksController extends Controller
@@ -21,7 +22,7 @@ class TasksController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -30,8 +31,8 @@ class TasksController extends Controller
         }
 
         $tasks = $query->orderBy('created_at', 'desc')
-                       ->paginate(12)
-                       ->withQueryString();
+            ->paginate(12)
+            ->withQueryString();
 
         $priorities = Priority::orderBy('id')->get();
         $categories = TaskCategory::orderBy('name')->get();
@@ -45,12 +46,12 @@ class TasksController extends Controller
         $statusFilter = $request->get('status');
 
         $query = Task::with(['priority', 'category', 'assignee', 'requester'])
-                     ->where('assigned_to', auth()->id());
+            ->where('assigned_to', auth()->id());
 
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -59,8 +60,8 @@ class TasksController extends Controller
         }
 
         $tasks = $query->orderBy('created_at', 'desc')
-                       ->paginate(12)
-                       ->withQueryString();
+            ->paginate(12)
+            ->withQueryString();
 
         $priorities = Priority::orderBy('id')->get();
         $categories = TaskCategory::orderBy('name')->get();
@@ -94,7 +95,23 @@ class TasksController extends Controller
 
         $data['is_requested'] = $assignedByLevel > $assignedToLevel ? 1 : 0;
 
-        Task::create($data);
+        $task = Task::create($data);
+
+       
+        NotificationService::send(
+            user: auth()->user(),
+            title: 'New Task Assigned',
+            message: "You have been assigned to task: {$data['name']}",
+            type: 'task_assigned',
+            relatedModel: $task,
+            priority: 'high',
+            extraData: [
+                'deadline' => $data['due_date'],
+                'assigned_by' => auth()->user()->name,
+            ],
+            channels: ['in-app', 'email']
+        );
+
 
         return redirect()->route('task.index')->with('success', 'Task created successfully.');
     }
@@ -104,7 +121,7 @@ class TasksController extends Controller
         $task->load(['priority', 'category', 'assignee', 'requester']);
 
         $taskArray = $task->toArray();
-        $taskArray['due_date'] = $task->due_date 
+        $taskArray['due_date'] = $task->due_date
             ? \Carbon\Carbon::parse($task->due_date)->format('Y-m-d')
             : null;
 
@@ -155,8 +172,8 @@ class TasksController extends Controller
             $qry->where('name', 'like', "%{$q}%")
                 ->orWhere('email', 'like', "%{$q}%");
         })
-        ->limit(10)
-        ->get(['id', 'name', 'email']);
+            ->limit(10)
+            ->get(['id', 'name', 'email']);
 
         return response()->json($results);
     }

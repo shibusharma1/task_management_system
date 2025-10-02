@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class EmployeeDetail extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['user_id', 'institution_id', 'phone', 'address', 'department', 'updated_at'];
+    protected $fillable = ['user_id','profile_picture', 'institution_id', 'phone', 'address', 'department', 'updated_at'];
 
     public function user(): BelongsTo
     {

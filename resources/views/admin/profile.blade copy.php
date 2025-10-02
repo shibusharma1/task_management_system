@@ -1,4 +1,3 @@
-
 @extends('layouts.admin.app')
 @section('title', 'Admin | Profile')
 
@@ -18,7 +17,7 @@
 
     <!-- Profile Form -->
     <div class="bg-white shadow rounded-lg p-6">
-        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.profile.update') }}">
+        <form method="POST" enctype="multipart/form-data" action="">
             @csrf
             @method('PUT')
 
@@ -26,8 +25,8 @@
             <h3 class="text-lg font-semibold text-gray-700 mb-4">Profile Picture</h3>
             <div class="flex flex-col items-center pb-6 border-b border-gray-200 mb-6">
                 <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200 bg-gray-100 flex items-center justify-center cursor-pointer" id="profile-picture-wrapper">
-                    @if(auth()->user()->employeeDetail->profile_picture)
-                        <img src="{{ asset('storage/' . auth()->user()->employeeDetail->profile_picture) }}" class="w-full h-full object-cover" id="profile-picture-preview">
+                    @if(auth()->user()->profile_picture)
+                        <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" class="w-full h-full object-cover" id="profile-picture-preview">
                     @else
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="profile-picture-placeholder">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -63,12 +62,12 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Phone Number</label>
-                    <input type="text" name="phone" value="{{ old('phone', auth()->user()->employeeDetail->phone ?? '') }}"
+                    <input type="text" name="phone" value="{{ old('phone', auth()->user()->phone) }}"
                         class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Address</label>
-                    <input type="text" name="address" value="{{ old('address', auth()->user()->employeeDetail->address ?? '') }}"
+                    <input type="text" name="address" value="{{ old('address', auth()->user()->address) }}"
                         class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2">
                 </div>
             </div>
@@ -133,26 +132,11 @@
             removeBtn.classList.add("hidden");
         });
 
-        // SweetAlert Toasts
         @if(session('success'))
-            Swal.fire({ 
-                toast: true, 
-                position: 'top-end', 
-                icon: 'success', 
-                title: "{{ session('success') }}", 
-                showConfirmButton: false, 
-                timer: 3000 
-            });
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: "{{ session('success') }}", showConfirmButton: false, timer: 3000 });
         @endif
         @if(session('error'))
-            Swal.fire({ 
-                toast: true, 
-                position: 'top-end', 
-                icon: 'error', 
-                title: "{{ session('error') }}", 
-                showConfirmButton: false, 
-                timer: 3000 
-            });
+            Swal.fire({ toast: true, position: 'top-end', icon: 'error', title: "{{ session('error') }}", showConfirmButton: false, timer: 3000 });
         @endif
     });
 </script>

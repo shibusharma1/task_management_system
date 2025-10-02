@@ -13,11 +13,12 @@ return new class extends Migration {
         Schema::create('employee_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade');
-            $table->foreignId('institution_id')->constrained('institutions')->onDelete('cascade');
+            // $table->foreignId('institution_id')->constrained('institutions')->onDelete('cascade');
+            $table->string('profile_picture')->nullable();
             $table->string('phone', 20)->nullable();
             $table->text('address')->nullable();
             // $table->string('department', 50)->nullable();
-            $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
+            // $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
             $table->timestamp('updated_at')->useCurrent();
         });
     }

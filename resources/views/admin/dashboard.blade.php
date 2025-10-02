@@ -129,7 +129,7 @@
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-900 truncate">{{ $task->name }}</p>
                                         <p class="text-xs text-gray-500 mt-1">Due: {{
-                                            optional($task->due_date)->format('M d, Y') }}</p>
+                                            $task->due_date }}</p>
                                     </div>
                                 </div>
                                 <div class="ml-2 flex-shrink-0">
@@ -147,12 +147,12 @@
                             <div class="mt-2 pl-8">
                                 <div class="flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user-tie mr-1"></i>
-                                    <span class="truncate">Assigned by: {{ optional($task->assignedBy)->name ?? 'N/A'
+                                    <span class="truncate">Assigned by: {{ $task->assigned_by ?? 'N/A'
                                         }}</span>
                                 </div>
                                 <div class="mt-1 flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user mr-1"></i>
-                                    <span class="truncate">Assigned to: {{ optional($task->assignedTo)->name ?? 'N/A'
+                                    <span class="truncate">Assigned to: {{ $task->assigned_to ?? 'N/A'
                                         }}</span>
                                 </div>
                             </div>
@@ -205,12 +205,12 @@
                             <div class="mt-2 pl-8">
                                 <div class="flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user-tie mr-1"></i>
-                                    <span class="truncate">Assigned by: {{ optional($task->assignedBy)->name ?? 'N/A'
+                                    <span class="truncate">Assigned by: {{ $task->assigned_by ?? 'N/A'
                                         }}</span>
                                 </div>
                                 <div class="mt-1 flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user mr-1"></i>
-                                    <span class="truncate">Assigned to: {{ optional($task->assignedTo)->name ?? 'N/A'
+                                    <span class="truncate">Assigned to: {{ $task->assigned_to ?? 'N/A'
                                         }}</span>
                                 </div>
                             </div>
@@ -264,12 +264,12 @@
                             <div class="mt-2 pl-8">
                                 <div class="flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user-tie mr-1"></i>
-                                    <span class="truncate">Assigned by: {{ optional($task->assignedBy)->name ?? 'N/A'
+                                    <span class="truncate">Assigned by: {{ $task->assigned_by ?? 'N/A'
                                         }}</span>
                                 </div>
                                 <div class="mt-1 flex items-center text-xs text-gray-500">
                                     <i class="fas fa-user mr-1"></i>
-                                    <span class="truncate">Assigned to: {{ optional($task->assignedTo)->name ?? 'N/A'
+                                    <span class="truncate">Assigned to: {{ $task->assigned_to ?? 'N/A'
                                         }}</span>
                                 </div>
                             </div>

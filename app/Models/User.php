@@ -90,4 +90,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(PerformanceReport::class);
     }
+
+    public function customNotifications()
+    {
+        return $this->hasMany(\App\Models\Notification::class, 'user_id')->latest();
+    }
+
 }

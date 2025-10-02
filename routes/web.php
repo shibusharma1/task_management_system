@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\DashboardController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InstitutionsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TaskCategoryController;
 use App\Http\Controllers\EmployeeDetailController;
 
@@ -195,8 +197,8 @@ Route::get('/storage-link', function () {
 
 // Group for Admin and Manager (role:0,1)
 Route::middleware(['auth', 'role:0,1'])->group(function () {
-    
-    });
+
+});
 
 
 
@@ -205,6 +207,22 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('notifications', [DashboardController::class, 'notifications'])->name('notifications');
+
+    // Notifications page
+    Route::get('notifications', [NotificationController::class, 'index'])
+        ->name('admin.notifications.index');
+
+    // Return a single notification as JSON (for modal)
+    Route::get('notifications/{id}', [NotificationController::class, 'show'])
+        ->name('admin.notifications.show');
+
+    // Mark as read (POST)
+    Route::post('notifications/{id}/mark-read', [NotificationController::class, 'markRead'])
+        ->name('admin.notifications.markRead');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+
+
     Route::get('designations', [DesignationController::class, 'index'])->name('designations.index');
     Route::post('designations', [DesignationController::class, 'store'])->name('designations.store');
     Route::get('designations/{designation}/edit', [DesignationController::class, 'edit'])->name('designations.edit');
