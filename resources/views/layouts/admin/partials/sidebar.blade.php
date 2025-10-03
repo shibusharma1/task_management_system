@@ -62,6 +62,15 @@
           </div>
         </div>
 
+        <!-- Employee Log -->
+        <a href="{{ route('logs.index') }}"
+          class="sidebar-link flex items-center px-2 py-3 text-sm font-medium
+             {{ request()->routeIs('logs.*') ? 'text-indigo-500 bg-indigo-100' : 'text-gray-600 hover:bg-gray-100' }}">
+          <i
+            class="fas fa-history mr-3 {{ request()->routeIs('logs.*') ? 'text-indigo-500' : 'text-gray-600' }}"></i>
+          Employee Log
+        </a>
+
         <!-- Attendance -->
         <a href="{{ route('attendance.index') }}"
           class="sidebar-link flex items-center px-2 py-3 text-sm font-medium
@@ -157,7 +166,8 @@
           <a href="#" class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100">
             <i class="fas fa-file-alt mr-2"></i> Reports
           </a>
-          <a href="{{ route('auditlog.index')}}" class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100">
+          <a href="{{ route('auditlog.index')}}"
+            class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100">
             <i class="fas fa-history mr-2"></i> Audit Logs
           </a>
         </div>

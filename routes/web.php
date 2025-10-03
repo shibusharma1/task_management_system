@@ -19,6 +19,7 @@ use App\Http\Controllers\InstitutionsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TaskCategoryController;
 use App\Http\Controllers\EmployeeDetailController;
+use App\Http\Controllers\EmployeeDailyLogController;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -349,6 +350,19 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Reminders
     Route::get('reminders', [ReminderController::class, 'index'])->name('reminder.index');
+
+    Route::get('logs', [EmployeeDailyLogController::class, 'index'])->name('logs.index');
+    Route::post('logs', [EmployeeDailyLogController::class, 'store'])->name('logs.store');
+    Route::get('logs/{log}', [EmployeeDailyLogController::class, 'show'])->name('logs.show');
+    Route::put('logs/{log}', [EmployeeDailyLogController::class, 'update'])->name('logs.update');
+    Route::delete('logs/{log}', [EmployeeDailyLogController::class, 'destroy'])->name('logs.destroy');
+
+    // AJAX
+    Route::post('logs/{log}/priority', [EmployeeDailyLogController::class, 'changePriority'])->name('logs.priority');
+    Route::post('logs/{log}/status', [EmployeeDailyLogController::class, 'changeStatus'])->name('logs.status');
+
+    // Employee search for assignment
+    Route::get('employees/search', [EmployeeDailyLogController::class, 'searchEmployees'])->name('employees.search');
 
 
     Route::get('/auditlog', [AuditLogController::class, 'index'])->name('auditlog.index');
